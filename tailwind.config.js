@@ -3,7 +3,11 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        playball: ["Playball", "cursive"], // Add your custom font here
+      },
+    },
   },
   plugins: [require("daisyui")],
   daisyui: {

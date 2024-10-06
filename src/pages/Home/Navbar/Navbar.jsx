@@ -33,7 +33,7 @@ const Navbar = () => {
       {/* Centered logo */}
       <div className="absolute left-[48%] transform -translate-x-1/2">
         <Link to="/">
-          <p className="text-3xl font-bold">
+          <p className="text-4xl font-bold font-playball">
             <span className="text-sky-500">Ani</span>Gen
           </p>
         </Link>
