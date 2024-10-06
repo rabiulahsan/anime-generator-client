@@ -41,11 +41,12 @@ const Navbar = () => {
 
       {/* Right side with search and buttons */}
       <div className="flex gap-x-4 items-center">
+        {/* searchbar */}
         <div className="relative">
           <IoSearch className="absolute left-4 top-[55%] transform -translate-y-1/2 text-slate-500" />
           <input
             type="text"
-            placeholder="Search your anime"
+            placeholder="Search your anime..."
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
             onKeyDown={handleSearch}
