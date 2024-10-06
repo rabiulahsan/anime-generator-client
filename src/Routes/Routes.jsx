@@ -6,6 +6,8 @@ import ErrorPage from "../Components/ErrorPage/ErrorPage";
 import Tools from "../pages/Tools/Tools";
 import Gallary from "../pages/Gallary/Gallary";
 import PricingPage from "../pages/PricingPage/PricingPage";
+import LoginPage from "../pages/LoginPage/LoginPage";
+import SignupPage from "../pages/SignupPage/SignupPage";
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +30,14 @@ export const router = createBrowserRouter([
       {
         path: "/pricing",
         element: <PricingPage></PricingPage>,
+      },
+      {
+        path: "/login",
+        element: <LoginPage></LoginPage>,
+      },
+      {
+        path: "/signup",
+        element: <SignupPage></SignupPage>,
       },
     ],
   },
