@@ -1,5 +1,12 @@
+import Navbar from "../Home/Navbar/Navbar";
+
 const Tools = () => {
-  return <div>This is tools page</div>;
+  return (
+    <div>
+      <Navbar></Navbar>
+      <p>This is tools page</p>
+    </div>
+  );
 };
 
 export default Tools;
