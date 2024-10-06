@@ -1,7 +1,9 @@
+import Navbar from "../Navbar/Navbar";
+
 const Home = () => {
   return (
     <div>
-      <p className="text-sky-400 font-bold">This is home</p>
+      <Navbar></Navbar>
     </div>
   );
 };
