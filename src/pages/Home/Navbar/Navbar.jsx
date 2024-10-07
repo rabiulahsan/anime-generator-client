@@ -16,7 +16,7 @@ const Navbar = () => {
 
   return (
     // <div className="sticky top-0 left-0 z-50">
-    <div className="flex justify-between items-center w-full py-4 px-[4%] relative">
+    <div className="flex justify-between items-center w-full py-5 px-[4%] relative">
       {/* Left side with menu items */}
       <div className="flex items-center gap-x-10">
         <span className="font-bold text-slate-800 hover:text-sky-500">
