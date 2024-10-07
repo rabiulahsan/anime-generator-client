@@ -1,3 +1,4 @@
+import About from "../About/About";
 import Banner from "../Banner/Banner";
 import GallarySection from "../GallarySection/GallarySection";
 import Navbar from "../Navbar/Navbar";
@@ -15,6 +16,7 @@ const Home = () => {
         <GallarySection></GallarySection>
         <Offers></Offers>
         <Questions></Questions>
+        <About></About>
       </div>
     </div>
   );
