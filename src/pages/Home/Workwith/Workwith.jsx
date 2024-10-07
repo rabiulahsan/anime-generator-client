@@ -5,9 +5,15 @@ import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
 const Workwith = () => {
   return (
     <div className=" my-[4%]">
-      <SectionTitle heading="We Featured In"></SectionTitle>
+      <SectionTitle heading="We Featured In (Demo)"></SectionTitle>
       <div className="w-[70%] mx-auto">
-        <Marquee gradient={true} speed={70} loop={0} className="">
+        <Marquee
+          pauseOnHover={true}
+          gradient={true}
+          speed={70}
+          loop={0}
+          className=""
+        >
           <MarqueeCard image={"google.png"}></MarqueeCard>
           <MarqueeCard image={"amazon.png"}></MarqueeCard>
           <MarqueeCard image={"netflix.png"}></MarqueeCard>
@@ -16,8 +22,9 @@ const Workwith = () => {
           <MarqueeCard image={"meta.png"}></MarqueeCard>
         </Marquee>
       </div>
-      <div className="w-[70%] mx-auto mt-[4%]">
+      <div className="w-[70%] mx-auto mt-[3%]">
         <Marquee
+          pauseOnHover={true}
           gradient={true}
           speed={70}
           loop={0}
