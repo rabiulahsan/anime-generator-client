@@ -7,11 +7,13 @@ const Banner = () => {
       <p className="text-5xl text-slate-700 font-bold mt-[5%] mb-[3%]">
         Instant Anime Creations, Just a Click Away!
       </p>
-      <p className="w-[60%]  text-slate-400 font-semibold text-center leading-10 mb-[3%]">
+      <p className="w-[60%]  text-slate-400 font-semibold text-center leading-8 mb-[2%]">
         Create stunning custom anime images in seconds! Our AI-powered app
         brings your creative ideas to life, making it easy to craft personalized
         anime artwork. Dive into your anime world today!
       </p>
+
+      {/* banner button  */}
       <div className=" flex items-center gap-x-5">
         <Link to="/tools">
           <button className="bg-sky-500 font-semibold  px-5 py-[10px] rounded text-white flex items-center gap-x-2 hover:bg-sky-600">
