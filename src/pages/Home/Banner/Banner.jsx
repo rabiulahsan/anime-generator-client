@@ -15,7 +15,7 @@ const Banner = () => {
 
       {/* banner button  */}
       <div className=" flex items-center gap-x-5">
-        <Link to="/tools">
+        <Link to="/tools/generate">
           <button className="bg-sky-500 font-semibold  px-5 py-[10px] rounded text-white flex items-center gap-x-2 hover:bg-sky-600">
             Get Started{" "}
             <span>

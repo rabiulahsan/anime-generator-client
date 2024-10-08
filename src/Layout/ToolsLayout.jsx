@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import LeftSideNavbar from "../Shared/LeftSideNavbar/LeftSideNavbar";
+import Footer from "../Shared/Footer/Footer";
 import Navbar from "../pages/Home/Navbar/Navbar";
 
 const ToolsLayout = () => {
@@ -14,6 +15,7 @@ const ToolsLayout = () => {
           <Outlet />
         </div>
       </div>
+      <Footer></Footer>
     </>
   );
 };

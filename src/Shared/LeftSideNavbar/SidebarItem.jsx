@@ -5,22 +5,26 @@ import { useEffect, useState } from "react";
 const SidebarItem = ({ icon, text, expanded, url }) => {
   const location = useLocation();
   const { pathname } = location;
-  console.log(pathname, url);
+  // console.log(pathname, url);
   const [active, setActive] = useState(false);
 
   useEffect(() => {
     pathname == `/tools/${url}` ? setActive(true) : setActive(false);
   }, [pathname, url]);
 
-  console.log(active);
+  // console.log(url);
   return (
     <>
       <Link to={url}>
         <li
-          className={`relative flex items-center py-3 px-5 my-3  text-slate-600
+          className={`relative flex items-center py-3 px-5 my-3  
         font-medium rounded-md cursor-pointer transition-colors group 
         ${expanded ? "justify-start" : "justify-center"}
-        ${active ? "text-slate-100 bg-slate-800" : "hover:bg-slate-200"}
+        ${
+          active
+            ? "text-slate-100 bg-slate-800"
+            : "hover:bg-slate-200 text-slate-600"
+        }
         `}
         >
           <span className="text-xl">{icon}</span>

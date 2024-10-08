@@ -6,6 +6,7 @@ import { FaUpRightAndDownLeftFromCenter, FaImages } from "react-icons/fa6";
 import { SiRemovedotbg } from "react-icons/si";
 import { TbBackground } from "react-icons/tb";
 import SidebarItem from "./SidebarItem";
+import { Link } from "react-router-dom";
 
 const LeftSideNavbar = () => {
   const [expanded, setExpanded] = useState(true);
@@ -24,14 +25,16 @@ const LeftSideNavbar = () => {
             ${expanded ? "justify-between" : "justify-center"}
             `}
         >
-          <p
-            className={`overflow-hidden transition-all ${
-              expanded ? "w-32 px-4" : "w-0"
-            } text-sky-500 font-bold text-2xl  `}
-          >
-            Ani
-            <span className="text-slate-600">Gen</span>
-          </p>
+          <Link to="/">
+            <p
+              className={`overflow-hidden transition-all ${
+                expanded ? "w-32 px-4" : "w-0"
+              } text-sky-500 font-bold text-2xl  `}
+            >
+              Ani
+              <span className="text-slate-600">Gen</span>
+            </p>
+          </Link>
           <button
             onClick={() => setExpanded((curr) => !curr)}
             className="p-2 text-lg text-slate-700 rounded bg-slate-100 hover:bg-slate-200"
