@@ -10,9 +10,9 @@ const ToolsLayout = () => {
         <div className="w-1/4 ">
           <LeftSideNavbar></LeftSideNavbar>
         </div>
-        {/* <div className="w-3/5 bg-[#ebeaf8]">
+        <div className="w-4/5 bg-white rounded-lg">
           <Outlet />
-        </div> */}
+        </div>
       </div>
     </>
   );

@@ -9,6 +9,11 @@ import LoginPage from "../pages/LoginPage/LoginPage";
 import SignupPage from "../pages/SignupPage/SignupPage";
 import ToolsLayout from "../Layout/ToolsLayout";
 import ToolsPage from "../pages/ToolsPage/ToolsPage";
+import Generate from "../pages/ToolsPage/Generate";
+import Removebg from "../pages/ToolsPage/Removebg";
+import Changebg from "../pages/ToolsPage/Changebg";
+import Reimagine from "../pages/ToolsPage/Reimagine";
+import Upscaling from "../pages/ToolsPage/Upscaling";
 
 export const router = createBrowserRouter([
   {
@@ -45,6 +50,26 @@ export const router = createBrowserRouter([
       {
         path: "/tools", // Nested under secondary layout
         element: <ToolsPage></ToolsPage>,
+      },
+      {
+        path: "/tools/generate", // Nested under secondary layout
+        element: <Generate></Generate>,
+      },
+      {
+        path: "/tools/upscale", // Nested under secondary layout
+        element: <Upscaling></Upscaling>,
+      },
+      {
+        path: "/tools/reimagine", // Nested under secondary layout
+        element: <Reimagine></Reimagine>,
+      },
+      {
+        path: "/tools/bgchange", // Nested under secondary layout
+        element: <Changebg></Changebg>,
+      },
+      {
+        path: "/tools/bgremove", // Nested under secondary layout
+        element: <Removebg></Removebg>,
       },
     ],
   },

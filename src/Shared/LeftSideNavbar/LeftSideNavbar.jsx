@@ -20,7 +20,7 @@ const LeftSideNavbar = () => {
       >
         {/* Top section with logo and collapse button */}
         <div
-          className={`p-4 pb-2 flex items-center 
+          className={`p-5 pb-2 flex items-center 
             ${expanded ? "justify-between" : "justify-center"}
             `}
         >
@@ -45,27 +45,31 @@ const LeftSideNavbar = () => {
           <SidebarItem
             icon={<RiAiGenerate />}
             text="Anime Generate"
+            url="generate"
             expanded={expanded}
-            active
           />
           <SidebarItem
             icon={<FaUpRightAndDownLeftFromCenter />}
             text="Upscaling"
+            url="upscale"
             expanded={expanded}
           />
           <SidebarItem
             icon={<SiRemovedotbg />}
             text="Background Change"
+            url="bgchange"
             expanded={expanded}
           />
           <SidebarItem
             icon={<TbBackground />}
             text="Remove Background"
+            url="bgremove"
             expanded={expanded}
           />
           <SidebarItem
             icon={<FaImages />}
             text="Reimagine"
+            url="reimagine"
             expanded={expanded}
           />
         </ul>
