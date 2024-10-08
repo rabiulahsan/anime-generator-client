@@ -6,13 +6,13 @@ const ToolsLayout = () => {
   return (
     <>
       <Navbar></Navbar>
-      <div className="flex w-full">
+      <div className="flex w-full bg-slate-100 px-[5%] py-[3%]">
         <div className="w-1/4 ">
           <LeftSideNavbar></LeftSideNavbar>
         </div>
-        <div className="w-3/5 bg-[#ebeaf8]">
+        {/* <div className="w-3/5 bg-[#ebeaf8]">
           <Outlet />
-        </div>
+        </div> */}
       </div>
     </>
   );
