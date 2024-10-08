@@ -9,3 +9,7 @@
 .offers-card-btn {
   @apply text-white font-semibold px-4 py-[10px] bg-sky-500 hover:bg-sky-600 rounded transition;
 }
+
+.footer-link {
+  @apply hover:text-sky-500 text-white text-2xl;
+}
