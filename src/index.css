@@ -13,3 +13,6 @@
 .footer-link {
   @apply hover:text-sky-500 text-white text-2xl;
 }
+.active-sidebar {
+  @apply text-slate-200 bg-slate-800;
+}

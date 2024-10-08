@@ -47,6 +47,7 @@ const LeftSideNavbar = () => {
             text="Anime Generate"
             url="generate"
             expanded={expanded}
+            active
           />
           <SidebarItem
             icon={<FaUpRightAndDownLeftFromCenter />}
