@@ -3,11 +3,12 @@ import { createBrowserRouter } from "react-router-dom";
 import Main from "../Layout/Main";
 import Home from "../pages/Home/Home/Home";
 import ErrorPage from "../Components/ErrorPage/ErrorPage";
-import Tools from "../pages/Tools/Tools";
 import Gallary from "../pages/Gallary/Gallary";
 import PricingPage from "../pages/PricingPage/PricingPage";
 import LoginPage from "../pages/LoginPage/LoginPage";
 import SignupPage from "../pages/SignupPage/SignupPage";
+import ToolsLayout from "../Layout/ToolsLayout";
+import ToolsPage from "../pages/ToolsPage/ToolsPage";
 
 export const router = createBrowserRouter([
   {
@@ -18,10 +19,6 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
-      },
-      {
-        path: "/tools",
-        element: <Tools></Tools>,
       },
       {
         path: "/gallary",
@@ -38,6 +35,16 @@ export const router = createBrowserRouter([
       {
         path: "/signup",
         element: <SignupPage></SignupPage>,
+      },
+    ],
+  },
+  {
+    path: "/tools", // Route using the SecondaryLayout
+    element: <ToolsLayout></ToolsLayout>,
+    children: [
+      {
+        path: "/tools", // Nested under secondary layout
+        element: <ToolsPage></ToolsPage>,
       },
     ],
   },
