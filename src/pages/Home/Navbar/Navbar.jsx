@@ -17,10 +17,8 @@ const Navbar = () => {
 
   //for showing modal
   const [showModal, setShowModal] = useState(false);
-  const [modalType, setModalType] = useState("login"); // 'login' or 'signup'
 
-  const openModal = (type) => {
-    setModalType(type);
+  const openModal = () => {
     setShowModal(true);
   };
 
@@ -86,11 +84,7 @@ const Navbar = () => {
         </div>
       </div>
       {/* Modal */}
-      <LoginModals
-        showModal={showModal}
-        handleClose={closeModal}
-        type={modalType}
-      />
+      <LoginModals showModal={showModal} handleClose={closeModal} />
     </div>
   );
 };

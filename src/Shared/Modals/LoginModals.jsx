@@ -1,17 +1,9 @@
 /* eslint-disable react/prop-types */
 
-import { useState } from "react";
+import GoogleSignin from "../GoogleSignin/GoogleSignin";
 
 const LoginModals = ({ showModal, handleClose, type }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
   if (!showModal) return null;
-
-  const handleLogin = () => {
-    console.log("Email:", email);
-    console.log("Password:", password);
-  };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
@@ -25,26 +17,14 @@ const LoginModals = ({ showModal, handleClose, type }) => {
         <h2 className="text-2xl font-bold mb-4">
           {type === "login" ? "Log In" : "Sign Up"}
         </h2>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-          className="w-full mb-4 p-2 border rounded"
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-          className="w-full mb-4 p-2 border rounded"
-        />
-        <button
-          onClick={handleLogin}
-          className="w-full bg-blue-500 text-white p-2 rounded"
-        >
-          {type === "login" ? "Log In" : "Sign Up"}
-        </button>
+
+        <div className="my-5">
+          <GoogleSignin></GoogleSignin>
+        </div>
+        <p className="text-center text-gray-600 my-2">or</p>
+        <div className="my-5">
+          <GoogleSignin></GoogleSignin>
+        </div>
       </div>
     </div>
   );
