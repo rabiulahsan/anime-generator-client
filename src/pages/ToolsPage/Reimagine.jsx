@@ -21,7 +21,7 @@ const Reimagine = () => {
 
   return (
     <>
-      <p className="text-center text-slate-600 font-bold text-2xl mb-[3%] mt-[6%]">
+      <p className="text-center text-slate-600 font-bold text-4xl mb-[3%] mt-[6%]">
         Reimagine Your Visuals
       </p>
       <p className="w-[70%] mx-auto text-center text-slate-400 font-semibold  text-sm leading-7 mb-[6%]">
@@ -30,7 +30,7 @@ const Reimagine = () => {
         versions of your visuals for endless creative possibilities.
       </p>
       <div className="mb-[5%]">
-        <p className="text-center text-slate-600 font-bold text-4xl mb-[5%] mt-[6%]">
+        <p className="text-center text-slate-600 font-bold text-2xl mb-[5%] mt-[6%]">
           Steps You Need for Re-Imagination
         </p>
         <div className="flex  justify-center items-center   px-[5%] gap-x-6">

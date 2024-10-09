@@ -54,12 +54,12 @@ const Navbar = () => {
             />
           </div>
 
-          <Link to="/login">
+          <Link to="">
             <button className="font-bold text-slate-700 px-5 py-3 rounded-full hover:bg-slate-100">
               Log in
             </button>
           </Link>
-          <Link to="/signup">
+          <Link to="">
             <button className="font-bold text-white bg-sky-500 px-5 py-3 rounded-full hover:bg-sky-600">
               Sign up
             </button>
