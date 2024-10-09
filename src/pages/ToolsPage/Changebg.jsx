@@ -30,7 +30,7 @@ const Changebg = () => {
         for creating unique visuals in seconds.
       </p>
       <div className="mb-[5%]">
-        <p className="text-center text-slate-600 font-bold text-4xl mb-[5%] mt-[6%]">
+        <p className="text-center text-slate-600 font-bold text-2xl mb-[5%] mt-[6%]">
           Steps You Need for Changing Background
         </p>
         <div className="flex  justify-center items-center   px-[5%] gap-x-6">

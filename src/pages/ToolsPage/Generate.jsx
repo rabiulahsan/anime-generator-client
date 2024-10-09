@@ -29,7 +29,7 @@ const Generate = () => {
         to life in vivid, artistic anime style.
       </p>
       <div className="mb-[5%]">
-        <p className="text-center text-slate-600 font-bold text-4xl mb-[5%] mt-[6%]">
+        <p className="text-center text-slate-600 font-bold text-2xl mb-[5%] mt-[6%]">
           Steps You Need for Anime Creation
         </p>
         <div className="flex  justify-center items-center   px-[5%] gap-x-6">
