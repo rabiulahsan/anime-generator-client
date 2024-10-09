@@ -71,7 +71,7 @@ const Upscaling = () => {
           body: form,
         }
       );
-
+      console.log(response);
       const buffer = await response.arrayBuffer();
       const blob = new Blob([buffer], { type: "image/png" });
       const imageUrl = URL.createObjectURL(blob);
