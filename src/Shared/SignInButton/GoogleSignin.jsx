@@ -25,7 +25,7 @@ const GoogleSignin = ({ handleClose }) => {
           image: loggedInUser?.photoURL,
           type: "free",
         };
-        console.log(saveUser);
+        handleClose();
         fetch("https://localhost:5000/users", {
           method: "POST",
           headers: {
@@ -35,7 +35,6 @@ const GoogleSignin = ({ handleClose }) => {
         })
           .then((res) => res.json())
           .then(() => {
-            handleClose();
             navigate(location, { replace: true });
           });
       })
