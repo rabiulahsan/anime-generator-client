@@ -1,10 +1,12 @@
 import { useState } from "react";
 import StepsCard from "../../Shared/StepsCard/StepsCard";
+import { IoIosSave } from "react-icons/io";
 
 const Upscaling = () => {
-  // const [photo, setPhoto] = useState(null);
-  // const [preview, setPreview] = useState(null); // For image preview
-  // const [loading, setLoading] = useState(false);
+  const [photo, setPhoto] = useState(null);
+  const [preview, setPreview] = useState(null); // For image preview
+  const [loading, setLoading] = useState(false);
+  const [upscaledImage, setUpscaledImage] = useState(null);
 
   const stepCards = [
     {
@@ -24,40 +26,84 @@ const Upscaling = () => {
     },
   ];
 
-  const [file, setFile] = useState(null);
-  // const [uploadProgress, setUploadProgress] = useState(0);
-  const [uploadedFile, setUploadedFile] = useState(null);
-
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    setFile(file);
+    if (file && file.size <= 10 * 1024 * 1024) {
+      setPhoto(file);
+
+      // Preview the image before upload using FileReader
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview(reader.result); // Set the base64 URL for preview
+      };
+      reader.readAsDataURL(file); // Convert file to base64 format for display
+    } else {
+      alert("File size exceeds 10MB or file type is not supported.");
+
+      //todo set sweetalert
+    }
   };
 
-  const handleUpload = () => {
-    // Simulate upload
-    setTimeout(() => {
-      setUploadedFile(URL.createObjectURL(file)); // Preview the uploaded file
-    }, 1000);
+  //processing for the upscaling via clipdrop api
+  const handleUpload = async () => {
+    if (!photo) {
+      alert("Please select an image.");
+      return;
+    }
+
+    setLoading(true);
+
+    // Prepare FormData for the API request
+    const form = new FormData();
+    form.append("image_file", photo); // Append image file
+    form.append("target_width", 2048); // Append target width
+    form.append("target_height", 2048); // Append target height
+
+    try {
+      const response = await fetch(
+        "https://clipdrop-api.co/image-upscaling/v1/upscale",
+        {
+          method: "POST",
+          headers: {
+            "x-api-key": import.meta.env.VITE_CLIP_DROP_KEY, // Replace with your actual API key
+          },
+          body: form,
+        }
+      );
+
+      const buffer = await response.arrayBuffer();
+      const blob = new Blob([buffer], { type: "image/png" });
+      const imageUrl = URL.createObjectURL(blob);
+
+      setUpscaledImage(imageUrl);
+    } catch (error) {
+      console.error("Error during the API request:", error);
+      alert("Something went wrong during image processing.");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // // Handle file change and set preview
-  // const handleFileChange = (event) => {
-  //   const file = event.target.files[0];
-  //   if (file && file.size <= 10 * 1024 * 1024) {
-  //     setPhoto(file);
+  // Function to handle the download
+  const handleSaveImage = () => {
+    // Create an anchor element
+    const link = document.createElement("a");
 
-  //     // Preview the image before upload using FileReader
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-  //       setPreview(reader.result); // Set the base64 URL for preview
-  //     };
-  //     reader.readAsDataURL(file); // Convert file to base64 format for display
-  //   } else {
-  //     alert("File size exceeds 10MB or file type is not supported.");
+    // Set the href to the upscaled image URL
+    link.href = upscaledImage;
 
-  //     //todo a sweet alert
-  //   }
-  // };
+    // Set the download attribute with the file name you want to save as
+    link.download = "upscaled-image.png"; // You can change the filename as needed
+
+    // Append the anchor to the document
+    document.body.appendChild(link);
+
+    // Trigger the download
+    link.click();
+
+    // Remove the anchor from the document
+    document.body.removeChild(link);
+  };
 
   return (
     <>
@@ -81,7 +127,7 @@ const Upscaling = () => {
       </div>
 
       {/* for handlng images and upscaling and display them  */}
-      <div className="">
+      <div className="mb-[5%]">
         <div className=" p-6 rounded-lg  w-[50%]  mx-auto">
           <h2 className="text-2xl font-bold text-center text-slate-600 mb-4">
             Upload File
@@ -108,36 +154,60 @@ const Upscaling = () => {
             </div>
           </div>
 
-          {file && (
+          {photo && (
             <div className="my-5 mx-auto  text-center">
               <p className="text-sm text-slate-600 mb-5">
-                Selected file: <span className="font-bold">{file.name}</span>
+                Selected file: <span className="font-bold">{photo.name}</span>
               </p>
 
               <button
                 onClick={handleUpload}
+                disabled={loading}
                 className=" bg-slate-600 font-semibold text-slate-100 px-4 py-2 rounded-md  mx-auto hover:bg-slate-700"
               >
-                Upload & Upscale
+                {loading ? "Upscaling..." : "Upload and Upscale"}
               </button>
             </div>
           )}
-
-          {/* displaying the output file  */}
-          {uploadedFile && (
-            <div className="mt-4 text-center">
-              <h3 className="text-md font-semibold">
-                Upload Image for Upscaling
+        </div>
+        {/* displaying the output file  */}
+        <div className="flex justify-around items-center mt-10">
+          {preview && upscaledImage && (
+            <div className="">
+              <h3 className="text-md font-semibold text-slate-600 text-center mb-5">
+                Before Upscaling
               </h3>
               <img
-                src={uploadedFile}
+                src={preview}
                 alt="Uploaded"
-                className="mt-2 w-full h-auto object-cover rounded-md"
+                className=" object-contain rounded-md w-[400px] h-[400px]"
               />
-              <p className="text-gray-600 mt-2">{file.name}</p>
+            </div>
+          )}
+          {upscaledImage && (
+            <div className="">
+              <h3 className="text-md font-semibold text-slate-600 text-center mb-5">
+                After Upscaling
+              </h3>
+              <img
+                src={upscaledImage}
+                alt="Upscaled"
+                className="object-contain rounded-md w-[400px] h-[400px]"
+              />
             </div>
           )}
         </div>
+        {upscaledImage && (
+          <button
+            onClick={handleSaveImage}
+            className="flex items-center gap-x-2 bg-slate-600 font-semibold text-slate-100 px-5 py-3 mt-10 rounded-md  mx-auto hover:bg-slate-700"
+          >
+            Save Upscaled Image{" "}
+            <span className="text-white text-xl">
+              <IoIosSave></IoIosSave>
+            </span>
+          </button>
+        )}
       </div>
     </>
   );
