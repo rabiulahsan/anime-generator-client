@@ -54,7 +54,7 @@ const ToolsPage = () => {
     },
   ];
   return (
-    <div>
+    <>
       <p className="text-center text-slate-600 font-bold text-4xl mb-[3%] mt-[6%]">
         AI Tools for Image Enhancement
       </p>
@@ -70,7 +70,7 @@ const ToolsPage = () => {
           <OffersCard key={card.id} card={card}></OffersCard>
         ))}
       </div>
-    </div>
+    </>
   );
 };
 
