@@ -162,7 +162,7 @@ const Removebg = () => {
               </h3>
               <img
                 src={bgRemovedImage}
-                alt="Upscaled"
+                alt="Error"
                 className="object-contain rounded-md w-[400px] h-[400px]"
               />
             </div>
@@ -173,7 +173,7 @@ const Removebg = () => {
             onClick={handleSaveImage}
             className="flex items-center gap-x-2 bg-slate-600 font-semibold text-slate-100 px-5 py-3 mt-10 rounded-md  mx-auto hover:bg-slate-700"
           >
-            Save Upscaled Image{" "}
+            Save New Image{" "}
             <span className="text-white text-xl">
               <IoIosSave></IoIosSave>
             </span>
