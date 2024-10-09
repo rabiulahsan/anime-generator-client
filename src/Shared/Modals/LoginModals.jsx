@@ -50,11 +50,11 @@ const LoginModals = ({ showModal, handleClose }) => {
         </button>
 
         <div className="my-2">
-          <GoogleSignin></GoogleSignin>
+          <GoogleSignin handleClose={handleClose}></GoogleSignin>
         </div>
         <p className="text-center text-slate-500 font-bold">or</p>
         <div className="my-2">
-          <GithubSignin></GithubSignin>
+          <GithubSignin handleClose={handleClose}></GithubSignin>
         </div>
       </div>
     </div>

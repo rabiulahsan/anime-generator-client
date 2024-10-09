@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
 import { FcGoogle } from "react-icons/fc";
 import { useLocation, useNavigate } from "react-router-dom";
 import UseAuth from "../../Hooks/UseAuth/UseAuth";
 // import { useLocation, useNavigate } from "react-router-dom";
 // import useAuth from "../../Hooks/UseAuth";
 
-const GoogleSignin = () => {
+const GoogleSignin = ({ handleClose }) => {
   const { googleLogin } = UseAuth();
   // console.log(user);
   const navigate = useNavigate();
@@ -34,6 +35,7 @@ const GoogleSignin = () => {
         })
           .then((res) => res.json())
           .then(() => {
+            handleClose();
             navigate(location, { replace: true });
           });
       })
