@@ -5,8 +5,6 @@ import Home from "../pages/Home/Home/Home";
 import ErrorPage from "../Components/ErrorPage/ErrorPage";
 import Gallary from "../pages/Gallary/Gallary";
 import PricingPage from "../pages/PricingPage/PricingPage";
-import LoginPage from "../pages/LoginPage/LoginPage";
-import SignupPage from "../pages/SignupPage/SignupPage";
 import ToolsLayout from "../Layout/ToolsLayout";
 import ToolsPage from "../pages/ToolsPage/ToolsPage";
 import Generate from "../pages/ToolsPage/Generate";

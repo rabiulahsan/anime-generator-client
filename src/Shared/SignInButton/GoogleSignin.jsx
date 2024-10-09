@@ -1,47 +1,45 @@
 import { FcGoogle } from "react-icons/fc";
+import { useLocation, useNavigate } from "react-router-dom";
+import UseAuth from "../../Hooks/UseAuth/UseAuth";
 // import { useLocation, useNavigate } from "react-router-dom";
 // import useAuth from "../../Hooks/UseAuth";
 
 const GoogleSignin = () => {
-  //   const { user, googleLogin } = useAuth();
-  //   // console.log(user);
-  //   const navigate = useNavigate();
-  //   const location = useLocation();
+  const { googleLogin } = UseAuth();
+  // console.log(user);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   //   const from = location.state?.from?.pathname || "/";
 
   const handleGoogleSignIn = () => {
     console.log("worked");
 
-    //     if (user) {
-    //       alert("At first logout");
-    //       return;
-    //     } else {
-    //       googleLogin() //todo google log in failure
-    //         .then((result) => {
-    //           const loggedInUser = result.user;
-    //           const saveUser = {
-    //             name: loggedInUser.displayName,
-    //             email: loggedInUser.email,
-    //             image: loggedInUser?.photoURL,
-    //           };
-    //           console.log(saveUser);
-    //           fetch("https://social-facilites-server.vercel.app/users", {
-    //             method: "POST",
-    //             headers: {
-    //               "content-type": "application/json",
-    //             },
-    //             body: JSON.stringify(saveUser),
-    //           })
-    //             .then((res) => res.json())
-    //             .then(() => {
-    //               navigate(from, { replace: true });
-    //             });
-    //         })
-    //         .catch((error) => {
-    //           console.error(error);
-    //         });
-    //     }
+    googleLogin()
+      .then((result) => {
+        const loggedInUser = result.user;
+        const saveUser = {
+          name: loggedInUser.displayName,
+          email: loggedInUser.email,
+          image: loggedInUser?.photoURL,
+          type: "free",
+        };
+        console.log(saveUser);
+        fetch("https://localhost:5000/users", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(saveUser),
+        })
+          .then((res) => res.json())
+          .then(() => {
+            navigate(location, { replace: true });
+          });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
   return (
     <div
