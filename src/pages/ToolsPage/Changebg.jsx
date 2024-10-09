@@ -31,7 +31,7 @@ const Changebg = () => {
       </p>
       <div className="mb-[5%]">
         <p className="text-center text-slate-600 font-bold text-4xl mb-[5%] mt-[6%]">
-          Steps You Need for Anime Creation
+          Steps You Need for Changing Background
         </p>
         <div className="flex  justify-center items-center   px-[5%] gap-x-6">
           {stepCards?.map((card) => (
