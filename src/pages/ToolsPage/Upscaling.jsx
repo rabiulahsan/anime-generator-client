@@ -135,6 +135,8 @@ const Upscaling = () => {
           handleUpload={handleUpload}
           photo={photo}
           loading={loading}
+          // name="Upload & Upscaling"
+          // loadingName="Upscaling..."
         ></ImageUploader>
 
         {/* displaying the output file  */}

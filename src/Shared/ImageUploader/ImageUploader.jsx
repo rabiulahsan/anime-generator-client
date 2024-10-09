@@ -1,5 +1,12 @@
 /* eslint-disable react/prop-types */
-const ImageUploader = ({ handleFileChange, handleUpload, photo, loading }) => {
+const ImageUploader = ({
+  handleFileChange,
+  handleUpload,
+  photo,
+  loading,
+  loadingName,
+  name,
+}) => {
   return (
     <div className=" p-6 rounded-lg  w-[50%]  mx-auto">
       <h2 className="text-2xl font-bold text-center text-slate-600 mb-4">
@@ -38,7 +45,7 @@ const ImageUploader = ({ handleFileChange, handleUpload, photo, loading }) => {
             disabled={loading}
             className=" bg-slate-600 font-semibold text-slate-100 px-4 py-2 rounded-md  mx-auto hover:bg-slate-700"
           >
-            {loading ? "Upscaling..." : "Upload and Upscale"}
+            {loading ? loadingName : name}
           </button>
         </div>
       )}

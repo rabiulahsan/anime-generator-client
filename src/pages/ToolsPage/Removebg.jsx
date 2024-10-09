@@ -92,7 +92,7 @@ const Removebg = () => {
     link.href = bgRemovedImage;
 
     // Set the download attribute with the file name you want to save as
-    link.download = "upscaled-image.png"; // You can change the filename as needed
+    link.download = "image-bg-removed.png"; // You can change the filename as needed
 
     // Append the anchor to the document
     document.body.appendChild(link);
@@ -133,6 +133,8 @@ const Removebg = () => {
           handleUpload={handleUpload}
           photo={photo}
           loading={loading}
+          // name="Remove Background"
+          // loadingName="Removing..."
         ></ImageUploader>
 
         {/* displaying the output file  */}
