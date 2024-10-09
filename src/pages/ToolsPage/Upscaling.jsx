@@ -1,6 +1,7 @@
 import { useState } from "react";
 import StepsCard from "../../Shared/StepsCard/StepsCard";
 import { IoIosSave } from "react-icons/io";
+import ImageUploader from "../../Shared/ImageUploader/ImageUploader";
 
 const Upscaling = () => {
   const [photo, setPhoto] = useState(null);
@@ -128,48 +129,14 @@ const Upscaling = () => {
 
       {/* for handlng images and upscaling and display them  */}
       <div className="mb-[5%]">
-        <div className=" p-6 rounded-lg  w-[50%]  mx-auto">
-          <h2 className="text-2xl font-bold text-center text-slate-600 mb-4">
-            Upload File
-          </h2>
-          <div className="border-dashed border-2 border-slate-300 rounded-md p-6 text-center h-[220px] flex justify-center items-center">
-            <div className="">
-              <input
-                type="file"
-                onChange={handleFileChange}
-                className="hidden"
-                id="file-upload"
-                accept="image/*"
-              />
-              <label
-                htmlFor="file-upload"
-                className="cursor-pointer text-blue-600 hover:underline"
-              >
-                Drag and Drop file here or{" "}
-                <span className="font-bold">Choose file</span>
-              </label>
-              <p className="text-gray-500 mt-2">
-                Supported formats: PNG, JPG, JPEG,WEBP (Max: 10MB)
-              </p>
-            </div>
-          </div>
+        {/* image uploader  */}
+        <ImageUploader
+          handleFileChange={handleFileChange}
+          handleUpload={handleUpload}
+          photo={photo}
+          loading={loading}
+        ></ImageUploader>
 
-          {photo && (
-            <div className="my-5 mx-auto  text-center">
-              <p className="text-sm text-slate-600 mb-5">
-                Selected file: <span className="font-bold">{photo.name}</span>
-              </p>
-
-              <button
-                onClick={handleUpload}
-                disabled={loading}
-                className=" bg-slate-600 font-semibold text-slate-100 px-4 py-2 rounded-md  mx-auto hover:bg-slate-700"
-              >
-                {loading ? "Upscaling..." : "Upload and Upscale"}
-              </button>
-            </div>
-          )}
-        </div>
         {/* displaying the output file  */}
         <div className="flex justify-around items-center mt-10">
           {preview && upscaledImage && (
