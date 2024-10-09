@@ -30,6 +30,10 @@ const Removebg = () => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file && file.size <= 10 * 1024 * 1024) {
+      if (!["image/png", "image/jpeg", "image/webp"].includes(file.type)) {
+        alert("Please upload an image in PNG, JPEG, or WebP format.");
+        return;
+      }
       setPhoto(file);
 
       // Preview the image before upload using FileReader
@@ -133,8 +137,8 @@ const Removebg = () => {
           handleUpload={handleUpload}
           photo={photo}
           loading={loading}
-          // name="Remove Background"
-          // loadingName="Removing..."
+          name="Remove Background"
+          loadingName="Removing..."
         ></ImageUploader>
 
         {/* displaying the output file  */}
