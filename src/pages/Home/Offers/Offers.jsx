@@ -16,7 +16,7 @@ const Offers = () => {
     {
       id: 2,
       title: "High-Resolution Upscaling",
-      name: "Upscaling",
+      name: "Upscale",
       image: "upscale.jpg",
       left: 1,
       url: "/upscale",

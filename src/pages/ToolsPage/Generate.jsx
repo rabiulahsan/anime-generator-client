@@ -19,7 +19,7 @@ const Generate = () => {
     },
   ];
   return (
-    <div>
+    <>
       <p className="text-center text-slate-600 font-bold text-4xl mb-[3%] mt-[6%]">
         Create Stunning Anime
       </p>
@@ -38,7 +38,7 @@ const Generate = () => {
           ))}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
