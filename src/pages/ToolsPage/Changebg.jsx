@@ -8,6 +8,8 @@ const Changebg = () => {
   const [preview, setPreview] = useState(null); // For image preview
   const [loading, setLoading] = useState(false);
   const [newBgImage, setNewBgImage] = useState(null);
+  const [prompt, setPrompt] = useState(""); // To store the user's prompt
+  const [error, setError] = useState(""); // To store validation error
 
   const stepCards = [
     {
@@ -102,13 +104,19 @@ const Changebg = () => {
       alert("Please select an image.");
       return;
     }
+    // Validate prompt character length
+    if (prompt.length > 850) {
+      setError("Prompt must be under 850 characters.");
+      return;
+    }
 
     setLoading(true);
+    setError(""); // Clear any previous error
 
     // Prepare FormData for the API request
     const form = new FormData();
     form.append("image_file", photo); // Append image file
-    form.append("prompt", "a snow road with camels and desert on side");
+    form.append("prompt", prompt);
 
     try {
       const response = await fetch(
@@ -175,6 +183,31 @@ const Changebg = () => {
             <StepsCard key={stepCards.id} card={card}></StepsCard>
           ))}
         </div>
+      </div>
+
+      {/* Prompt Input Field */}
+      <div className="w-[70%] mx-auto my-8">
+        <label
+          htmlFor="prompt"
+          className="block text-slate-600 font-semibold mb-2"
+        >
+          Describe the Background (max 850 characters):
+        </label>
+        <textarea
+          id="prompt"
+          value={prompt}
+          onChange={(e) => setPrompt(e.target.value)}
+          maxLength={850}
+          className="w-full p-3 rounded-md border border-slate-300 focus:ring focus:ring-slate-400 focus:outline-none"
+          rows={5}
+          placeholder="Type the background description here..."
+        />
+        {error && (
+          <p className="text-red-500 text-sm mt-2 font-semibold">{error}</p>
+        )}
+        <p className="text-slate-500 text-sm mt-2">
+          {prompt.length}/850 characters used
+        </p>
       </div>
 
       {/* for handlng images  and display them  */}
