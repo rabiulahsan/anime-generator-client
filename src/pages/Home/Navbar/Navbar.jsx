@@ -65,16 +65,24 @@ const Navbar = () => {
               className="pl-10 pr-3 py-[10px] w-full bg-slate-100 text-gray-700 rounded-full border-2 border-transparent focus:outline-none focus:border-slate-300 focus:bg-white transition-colors"
             />
           </div>
+
           <button
             onClick={() => openModal("login")}
-            className="font-bold text-slate-700 px-5 py-3 rounded-full hover:bg-slate-100"
+            className="font-bold text-white bg-sky-500 px-5 py-3 rounded-full hover:bg-sky-600"
           >
             Log in
           </button>
 
-          <button className="font-bold text-white bg-sky-500 px-5 py-3 rounded-full hover:bg-sky-600">
+          {/* <button
+            onClick={() => openModal("login")}
+            className="font-bold text-slate-700 px-5 py-3 rounded-full hover:bg-slate-100"
+          >
+            Log in
+          </button> */}
+
+          {/* <button className="font-bold text-white bg-sky-500 px-5 py-3 rounded-full hover:bg-sky-600">
             Sign up
-          </button>
+          </button> */}
         </div>
       </div>
       {/* Modal */}

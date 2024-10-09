@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
+
 import { useState } from "react";
 
 const LoginModals = ({ showModal, handleClose, type }) => {
-  if (!showModal) return null;
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  if (!showModal) return null;
 
   const handleLogin = () => {
     console.log("Email:", email);
