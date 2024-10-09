@@ -38,6 +38,7 @@ const AuthProvider = ({ children }) => {
 
   const googleProvider = new GoogleAuthProvider();
   const githubProvider = new GithubAuthProvider();
+  githubProvider.addScope("user:email"); // Add the scope to request the user's email
 
   //google log in
 

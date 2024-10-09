@@ -43,7 +43,7 @@ const LoginModals = ({ showModal, handleClose }) => {
           Log in to Create and Save Anime
         </p>
         <button
-          className="absolute top-1 right-1 text-slate-500 text-4xl"
+          className="absolute -top-4 -right-4 text-slate-100 text-3xl bg-sky-500  rounded-full "
           onClick={handleClose}
         >
           <IoMdCloseCircleOutline></IoMdCloseCircleOutline>{" "}
@@ -52,10 +52,10 @@ const LoginModals = ({ showModal, handleClose }) => {
         <div className="my-2">
           <GoogleSignin handleClose={handleClose}></GoogleSignin>
         </div>
-        <p className="text-center text-slate-500 font-bold">or</p>
+        {/* <p className="text-center text-slate-500 font-bold">or</p>
         <div className="my-2">
           <GithubSignin handleClose={handleClose}></GithubSignin>
-        </div>
+        </div> */}
       </div>
     </div>
   );

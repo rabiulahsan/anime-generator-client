@@ -14,8 +14,6 @@ const GoogleSignin = ({ handleClose }) => {
   //   const from = location.state?.from?.pathname || "/";
 
   const handleGoogleSignIn = () => {
-    console.log("worked");
-
     googleLogin()
       .then((result) => {
         const loggedInUser = result.user;

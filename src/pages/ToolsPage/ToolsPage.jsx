@@ -8,7 +8,7 @@ const ToolsPage = () => {
       name: "Generate Anime",
       image: "generate.jpg",
       left: 0,
-      url: "/generate",
+      url: "/tools/generate",
       description:
         "Generate captivating anime art by simply writing a prompt. Whether you're imagining characters, landscapes, or entire scenes, bring your ideas to life in vivid, artistic anime style.",
     },
@@ -18,7 +18,7 @@ const ToolsPage = () => {
       name: "Upscaling",
       image: "upscale.jpg",
       left: 1,
-      url: "/upscale",
+      url: "/tools/upscale",
       description:
         "Enhance the quality of your images with AI-powered upscaling. Improve resolution, sharpen details, and make your images look crisper and more professional with just a click.",
     },
@@ -28,7 +28,7 @@ const ToolsPage = () => {
       name: "Change Background",
       image: "changebg.jpg",
       left: 0,
-      url: "bgchange",
+      url: "/tools/bgchange",
       description:
         "Effortlessly change the background of any image by describing the scene you envision. Replace dull backgrounds with stunning new ones, perfect for creating unique visuals in seconds.",
     },
@@ -38,7 +38,7 @@ const ToolsPage = () => {
       name: "Remove Background",
       image: "remove.jpg",
       left: 1,
-      url: "/bgremove",
+      url: "/tools/bgremove",
       description:
         "Remove unwanted backgrounds from any image with precision. Cleanly isolate subjects from their backgrounds, making your images versatile and ready for creative projects or professional use.",
     },
@@ -48,7 +48,7 @@ const ToolsPage = () => {
       name: "Reimagine",
       image: "reimagine.jpg",
       left: 0,
-      url: "reimagine",
+      url: "/tools/reimagine",
       description:
         "Transform your images into something entirely new by using AI to reimagine them. Modify styles, tweak elements, or explore alternate versions of your visuals for endless creative possibilities.",
     },
