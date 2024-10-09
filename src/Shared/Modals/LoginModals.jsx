@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 
-import GoogleSignin from "../GoogleSignin/GoogleSignin";
+import GithubSignin from "../SignInButton/GithubSignin";
+import GoogleSignin from "../SignInButton/GoogleSignin";
 
-const LoginModals = ({ showModal, handleClose, type }) => {
+const LoginModals = ({ showModal, handleClose }) => {
   if (!showModal) return null;
 
   return (
@@ -14,16 +15,13 @@ const LoginModals = ({ showModal, handleClose, type }) => {
         >
           Close
         </button>
-        <h2 className="text-2xl font-bold mb-4">
-          {type === "login" ? "Log In" : "Sign Up"}
-        </h2>
 
-        <div className="my-5">
+        <div className="my-2">
           <GoogleSignin></GoogleSignin>
         </div>
-        <p className="text-center text-gray-600 my-2">or</p>
-        <div className="my-5">
-          <GoogleSignin></GoogleSignin>
+        <p className="text-center text-gray-600">or</p>
+        <div className="my-2">
+          <GithubSignin></GithubSignin>
         </div>
       </div>
     </div>
