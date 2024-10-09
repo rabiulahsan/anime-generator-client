@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import ActiveLink from "../../../Components/ActiveLink/ActiveLink";
 import { useState } from "react";
 import { IoSearch } from "react-icons/io5";
+import LoginModals from "../../../Shared/Modals/LoginModals";
 
 const Navbar = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -13,6 +14,17 @@ const Navbar = () => {
       //todo search logic apply
     }
   };
+
+  //for showing modal
+  const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState("login"); // 'login' or 'signup'
+
+  const openModal = (type) => {
+    setModalType(type);
+    setShowModal(true);
+  };
+
+  const closeModal = () => setShowModal(false);
 
   return (
     <div className="sticky top-0 left-0 z-50">
@@ -53,19 +65,24 @@ const Navbar = () => {
               className="pl-10 pr-3 py-[10px] w-full bg-slate-100 text-gray-700 rounded-full border-2 border-transparent focus:outline-none focus:border-slate-300 focus:bg-white transition-colors"
             />
           </div>
+          <button
+            onClick={() => openModal("login")}
+            className="font-bold text-slate-700 px-5 py-3 rounded-full hover:bg-slate-100"
+          >
+            Log in
+          </button>
 
-          <Link to="">
-            <button className="font-bold text-slate-700 px-5 py-3 rounded-full hover:bg-slate-100">
-              Log in
-            </button>
-          </Link>
-          <Link to="">
-            <button className="font-bold text-white bg-sky-500 px-5 py-3 rounded-full hover:bg-sky-600">
-              Sign up
-            </button>
-          </Link>
+          <button className="font-bold text-white bg-sky-500 px-5 py-3 rounded-full hover:bg-sky-600">
+            Sign up
+          </button>
         </div>
       </div>
+      {/* Modal */}
+      <LoginModals
+        showModal={showModal}
+        handleClose={closeModal}
+        type={modalType}
+      />
     </div>
   );
 };
