@@ -1,11 +1,21 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ActiveLink from "../../../Components/ActiveLink/ActiveLink";
 import { useState } from "react";
 import { IoSearch } from "react-icons/io5";
 import LoginModals from "../../../Shared/Modals/LoginModals";
+import UseAuth from "../../../Hooks/UseAuth/UseAuth";
 
 const Navbar = () => {
   const [searchValue, setSearchValue] = useState("");
+  const { logOut, user } = UseAuth();
+  const navigate = useNavigate();
+
+  // functon for logout
+  const handleLogOut = () => {
+    logOut()
+      .then(navigate("/"))
+      .catch((error) => console.log(error));
+  };
 
   const handleSearch = (e) => {
     if (e.key === "Enter") {
@@ -64,12 +74,22 @@ const Navbar = () => {
             />
           </div>
 
-          <button
-            onClick={() => openModal("login")}
-            className="font-bold text-white bg-sky-500 px-5 py-3 rounded-full hover:bg-sky-600"
-          >
-            Log in
-          </button>
+          {/* login or logout button optional based on user  */}
+          {user ? (
+            <button
+              onClick={handleLogOut}
+              className="font-bold text-slate-100 bg-slate-600 px-5 py-3 rounded-full hover:bg-slate-700"
+            >
+              Log out
+            </button>
+          ) : (
+            <button
+              onClick={openModal}
+              className="font-bold text-white bg-sky-500 px-5 py-3 rounded-full hover:bg-sky-600"
+            >
+              Log in
+            </button>
+          )}
 
           {/* <button
             onClick={() => openModal("login")}
