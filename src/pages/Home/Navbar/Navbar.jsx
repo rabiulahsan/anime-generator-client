@@ -8,6 +8,7 @@ import UseAuth from "../../../Hooks/UseAuth/UseAuth";
 const Navbar = () => {
   const [searchValue, setSearchValue] = useState("");
   const { logOut, user } = UseAuth();
+  console.log(user);
   const navigate = useNavigate();
 
   // functon for logout
@@ -95,6 +96,13 @@ const Navbar = () => {
             >
               Log in
             </button>
+          )}
+          {user && (
+            <img
+              className="h-[50px] w-[50px] object-cover rounded-full"
+              src={user.photoURL}
+              alt={user.displayName}
+            />
           )}
 
           {/* <button
