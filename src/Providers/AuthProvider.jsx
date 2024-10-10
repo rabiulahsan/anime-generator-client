@@ -26,14 +26,39 @@ const AuthProvider = ({ children }) => {
 
   // create a observer
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (loggedUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (loggedUser) => {
       setUser(loggedUser);
-      setLoading(false);
+
+      if (loggedUser) {
+        try {
+          // Fetching the JWT from the server
+          const response = await fetch("http://localhost:5000/jwt", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email: loggedUser.email }),
+          });
+
+          if (!response.ok) {
+            throw new Error("Failed to retrieve JWT token");
+          }
+
+          const data = await response.json();
+          // Store the JWT in local storage
+          localStorage.setItem("access-token", data.token);
+          setLoading(false);
+        } catch (error) {
+          console.error("Error during the API request:", error);
+          setLoading(false);
+        }
+      } else {
+        // Remove token if the user is logged out
+        localStorage.removeItem("access-token");
+      }
     });
 
-    return () => {
-      unsubscribe();
-    };
+    return () => unsubscribe();
   }, []);
 
   const googleProvider = new GoogleAuthProvider();
