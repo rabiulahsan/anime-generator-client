@@ -4,15 +4,16 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 const SkeletonCard = ({ number }) => {
+  // console.log(number);
   const skeletonElements = [];
   for (let i = 0; i < number; i++) {
     skeletonElements.push(
       <div key={i}>
         <div className="my-7">
-          <Skeleton height={200}></Skeleton>
+          <Skeleton height={300}></Skeleton>
         </div>
         <div className="">
-          <Skeleton count={4} style={{ marginBottom: "12px" }}></Skeleton>
+          <Skeleton count={2} style={{ marginBottom: "12px" }}></Skeleton>
         </div>
       </div>
     );
