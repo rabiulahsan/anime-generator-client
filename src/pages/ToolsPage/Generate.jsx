@@ -159,11 +159,16 @@ const Generate = () => {
         <button
           onClick={handleGenerate}
           disabled={loading}
-          className="flex items-center gap-x-2 bg-slate-600 font-semibold text-slate-100 px-5 py-3 mt-10 rounded-md  mx-auto hover:bg-slate-700"
+          className={`flex items-center gap-x-2 font-semibold text-slate-100 px-5 py-3 mt-10 rounded-md mx-auto 
+    ${
+      loading
+        ? "bg-slate-400 hover:bg-slate-400"
+        : "bg-slate-700 hover:bg-slate-800"
+    }`}
         >
           {loading ? "Generating... " : "Generate"}
           <span>
-            <RiAiGenerate></RiAiGenerate>
+            <RiAiGenerate />
           </span>
         </button>
 

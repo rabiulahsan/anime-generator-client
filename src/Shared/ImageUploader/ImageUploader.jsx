@@ -43,7 +43,12 @@ const ImageUploader = ({
           <button
             onClick={handleUpload}
             disabled={loading}
-            className=" bg-slate-600 font-semibold text-slate-100 px-4 py-2 rounded-md  mx-auto hover:bg-slate-700"
+            className={`flex items-center gap-x-2 font-semibold text-slate-100 px-5 py-3 mt-10 rounded-md mx-auto 
+                ${
+                  loading
+                    ? "bg-slate-400 hover:bg-slate-400"
+                    : "bg-slate-700 hover:bg-slate-800"
+                }`}
           >
             {loading ? loadingName : name}
           </button>
