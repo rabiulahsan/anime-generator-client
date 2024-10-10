@@ -2,6 +2,7 @@ import { useState } from "react";
 import StepsCard from "../../Shared/StepsCard/StepsCard";
 import { RiAiGenerate } from "react-icons/ri";
 import UseAuth from "../../Hooks/UseAuth/UseAuth";
+import { IoIosSave } from "react-icons/io";
 
 const Generate = () => {
   const [prompt, setPrompt] = useState(""); // To store the user's prompt
@@ -81,6 +82,36 @@ const Generate = () => {
     }
   };
 
+  // Function to handle the download
+  const handleSaveImage = async () => {
+    try {
+      const response = await fetch(generatedImage); // Fetch the image
+      const blob = await response.blob(); // Convert it to a Blob
+      const url = URL.createObjectURL(blob); // Create a URL for the Blob
+
+      // Create an anchor element
+      const link = document.createElement("a");
+      link.href = url;
+
+      // Set the download attribute with the file name you want to save as
+      link.download = "generated-anime.png"; // You can change the filename as needed
+
+      // Append the anchor to the document
+      document.body.appendChild(link);
+
+      // Trigger the download
+      link.click();
+
+      // Remove the anchor from the document
+      document.body.removeChild(link);
+
+      // Revoke the object URL to free up memory
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error downloading the image:", error);
+    }
+  };
+
   return (
     <>
       <p className="text-center text-slate-600 font-bold text-4xl mb-[3%] mt-[6%]">
@@ -135,6 +166,25 @@ const Generate = () => {
             <RiAiGenerate></RiAiGenerate>
           </span>
         </button>
+
+        {generatedImage && (
+          <>
+            <img
+              className="object-contain h-[500px] w-[500px] rounded-md mx-auto mt-10"
+              src={generatedImage}
+              alt="Generated Image"
+            />
+            <button
+              onClick={handleSaveImage}
+              className="flex items-center gap-x-2 bg-slate-600 font-semibold text-slate-100 px-5 py-3 mt-10 rounded-md  mx-auto hover:bg-slate-700"
+            >
+              Save New Image{" "}
+              <span className="text-white text-xl">
+                <IoIosSave></IoIosSave>
+              </span>
+            </button>
+          </>
+        )}
       </div>
     </>
   );
