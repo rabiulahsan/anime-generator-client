@@ -13,6 +13,7 @@ import Changebg from "../pages/ToolsPage/Changebg";
 import Reimagine from "../pages/ToolsPage/Reimagine";
 import Upscaling from "../pages/ToolsPage/Upscaling";
 import CreationPage from "../pages/CreationPage/CreationPage";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -30,7 +31,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/creation",
-        element: <CreationPage></CreationPage>,
+        element: (
+          <PrivateRoute>
+            <CreationPage></CreationPage>,
+          </PrivateRoute>
+        ),
       },
       {
         path: "/pricing",

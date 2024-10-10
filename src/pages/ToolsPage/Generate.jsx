@@ -3,6 +3,8 @@ import StepsCard from "../../Shared/StepsCard/StepsCard";
 import { RiAiGenerate } from "react-icons/ri";
 import UseAuth from "../../Hooks/UseAuth/UseAuth";
 import { IoIosSave } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
+import LoginModals from "../../Shared/Modals/LoginModals";
 
 const Generate = () => {
   const [prompt, setPrompt] = useState(""); // To store the user's prompt
@@ -10,6 +12,14 @@ const Generate = () => {
   const [loading, setLoading] = useState(false);
   const { user } = UseAuth();
   const [generatedImage, setGeneratedImage] = useState(null);
+  const navigate = useNavigate();
+
+  //for showing modal
+  const [showModal, setShowModal] = useState(false);
+  const openModal = () => {
+    setShowModal(true);
+  };
+  const closeModal = () => setShowModal(false);
 
   const stepCards = [
     {
@@ -30,6 +40,20 @@ const Generate = () => {
   ];
 
   const handleGenerate = async () => {
+    if (!user) {
+      alert("You need to log in to use this feature.");
+      openModal(); // Open the login modal
+      return;
+    }
+
+    // Check if prompt is empty
+    if (!prompt.trim()) {
+      alert("Prompt cannot be empty.");
+      return;
+
+      //todo sweetalert
+    }
+
     // Validate prompt character length
     if (prompt.length > 850) {
       setError("Prompt must be under 850 characters.");
@@ -203,6 +227,7 @@ const Generate = () => {
           </>
         )}
       </div>
+      <LoginModals showModal={showModal} handleClose={closeModal} />
     </>
   );
 };
