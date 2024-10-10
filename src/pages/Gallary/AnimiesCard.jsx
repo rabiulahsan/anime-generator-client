@@ -1,25 +1,21 @@
 /* eslint-disable react/prop-types */
-import { motion } from "framer-motion";
 
 const AnimiesCard = ({ details }) => {
-  //   console.log(details);
   const { image_url, prompt } = details;
 
   return (
-    <div className=" relative h-[350px]  w-[300px]  main  cursor-pointer my-5">
-      {/* created dynamic link for category and country page  */}
+    <div className="relative   group">
+      <div className="relative overflow-hidden rounded-lg">
+        {/* Image with pop-up scaling effect */}
+        <img
+          className="h-full w-full object-cover rounded-lg transition-transform duration-500 ease-in-out group-hover:scale-110"
+          src={image_url}
+          alt=""
+        />
 
-      <img
-        className="h-full w-full object-contain  rounded-lg mb-3"
-        src={image_url}
-        alt=""
-      />
-
-      <div className="card-hover overlay ">
-        <div className=" px-8">
-          <p className=" text-2xl text-sky-500 font-bold text-center mb-3">
-            {prompt}
-          </p>
+        {/* Overlay that slides up on hover */}
+        <div className="absolute bottom-0 left-0 right-0 h-full bg-black bg-opacity-60 text-white flex items-center justify-center translate-y-full group-hover:translate-y-0 transition-all duration-500 ease-in-out">
+          <p className="text-sm text-center font-semibold px-5">{prompt}</p>
         </div>
       </div>
     </div>
