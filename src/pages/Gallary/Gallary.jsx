@@ -7,7 +7,9 @@ const Gallary = () => {
   return (
     <div>
       <Navbar></Navbar>
-      <p>this is gallary page</p>
+      <p className="text-slate-600 font-bold text-3xl my-[5%] text-center">
+        Anime World- Users Creations
+      </p>
     </div>
   );
 };
