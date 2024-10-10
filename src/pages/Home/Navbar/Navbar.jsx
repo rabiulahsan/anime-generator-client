@@ -42,6 +42,12 @@ const Navbar = () => {
           <span className="font-bold text-slate-800 hover:text-sky-500">
             <ActiveLink to="/gallary">Gallary</ActiveLink>
           </span>
+          {/* optional option */}
+          {user && (
+            <span className="font-bold text-slate-800 hover:text-sky-500">
+              <ActiveLink to="/creation">My Creation</ActiveLink>
+            </span>
+          )}
           <span className="font-bold text-slate-800 hover:text-sky-500">
             <ActiveLink to="/tools">Tools</ActiveLink>
           </span>
