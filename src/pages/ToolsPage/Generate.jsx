@@ -8,6 +8,7 @@ const Generate = () => {
   const [error, setError] = useState(""); // To store validation error
   const [loading, setLoading] = useState(false);
   const { user } = UseAuth();
+  const [generatedImage, setGeneratedImage] = useState(null);
 
   const stepCards = [
     {
@@ -58,6 +59,20 @@ const Generate = () => {
 
       const result = await response.json();
       console.log(result);
+
+      const { insertedId } = result; // Extract the insertedId
+
+      // Fetch the generated image using the insertedId
+      const imageResponse = await fetch(
+        `http://localhost:5000/animies/generated/${insertedId}`
+      );
+      if (!imageResponse.ok) {
+        throw new Error("Failed to fetch generated image");
+      }
+
+      const imageData = await imageResponse.json();
+      console.log(imageData);
+      setGeneratedImage(imageData.image_url);
     } catch (error) {
       console.error("Error during the API request:", error);
       alert("Something went wrong during image processing.");
@@ -100,7 +115,7 @@ const Generate = () => {
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           maxLength={850}
-          className="w-full p-3 rounded-md border border-slate-300 focus:ring focus:ring-slate-400 focus:outline-none"
+          className="w-full p-3 text-slate-600 rounded-md border border-slate-300 focus:ring focus:ring-slate-400 focus:outline-none"
           rows={5}
           placeholder="Type the background description here..."
         />

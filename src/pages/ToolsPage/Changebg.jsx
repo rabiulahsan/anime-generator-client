@@ -198,7 +198,7 @@ const Changebg = () => {
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           maxLength={850}
-          className="w-full p-3 rounded-md border border-slate-300 focus:ring focus:ring-slate-400 focus:outline-none"
+          className="w-full p-3 text-slate-600 rounded-md border border-slate-300 focus:ring focus:ring-slate-400 focus:outline-none"
           rows={5}
           placeholder="Type the background description here..."
         />
