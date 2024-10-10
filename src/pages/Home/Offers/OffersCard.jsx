@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 /* eslint-disable react/prop-types */
 const OffersCard = ({ card }) => {
   const { title, name, image, left, description, url } = card;
-  console.log(url);
+  // console.log(url);
 
   return (
     <div className="flex justify-between items-center mx-[6%] mb-[5%] px-[6%] py-[3%] bg-transparent rounded-lg">

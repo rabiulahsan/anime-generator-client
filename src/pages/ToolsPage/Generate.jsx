@@ -3,7 +3,6 @@ import StepsCard from "../../Shared/StepsCard/StepsCard";
 import { RiAiGenerate } from "react-icons/ri";
 import UseAuth from "../../Hooks/UseAuth/UseAuth";
 import { IoIosSave } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
 import LoginModals from "../../Shared/Modals/LoginModals";
 
 const Generate = () => {
@@ -12,7 +11,6 @@ const Generate = () => {
   const [loading, setLoading] = useState(false);
   const { user } = UseAuth();
   const [generatedImage, setGeneratedImage] = useState(null);
-  const navigate = useNavigate();
 
   //for showing modal
   const [showModal, setShowModal] = useState(false);

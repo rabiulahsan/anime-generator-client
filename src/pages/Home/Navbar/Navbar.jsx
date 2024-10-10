@@ -8,7 +8,7 @@ import UseAuth from "../../../Hooks/UseAuth/UseAuth";
 const Navbar = () => {
   const [searchValue, setSearchValue] = useState("");
   const { logOut, user } = UseAuth();
-  console.log(user);
+  // console.log(user);
   const navigate = useNavigate();
 
   // functon for logout

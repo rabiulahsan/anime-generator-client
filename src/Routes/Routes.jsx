@@ -31,11 +31,14 @@ export const router = createBrowserRouter([
       },
       {
         path: "/creation",
-        element: (
-          <PrivateRoute>
-            <CreationPage></CreationPage>,
-          </PrivateRoute>
-        ),
+        element: <CreationPage></CreationPage>,
+
+        //todo fixed  private route
+        // element: (
+        //   <PrivateRoute>
+        //     <CreationPage></CreationPage>,
+        //   </PrivateRoute>
+        // ),
       },
       {
         path: "/pricing",
