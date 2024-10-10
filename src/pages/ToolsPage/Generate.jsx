@@ -45,11 +45,16 @@ const Generate = () => {
     };
     console.log(promptData);
     try {
+      // Retrieve JWT token from localStorage
+      const token = localStorage.getItem("access-token");
+
+      // Make the POST request to generate the image
       const response = await fetch("http://localhost:5000/animies/generate", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json", // This ensures the server reads it as JSON
+          "Content-Type": "application/json", // Ensure the server reads it as JSON
           "x-api-key": import.meta.env.VITE_CLIP_DROP_KEY, // Replace with your actual API key
+          Authorization: `Bearer ${token}`, // Add JWT token to headers
         },
         body: JSON.stringify(promptData), // Convert the object to JSON string
       });
@@ -65,8 +70,15 @@ const Generate = () => {
 
       // Fetch the generated image using the insertedId
       const imageResponse = await fetch(
-        `http://localhost:5000/animies/generated/${insertedId}`
+        `http://localhost:5000/animies/generated/${insertedId}`,
+        {
+          method: "GET", // or POST if needed
+          headers: {
+            Authorization: `Bearer ${token}`, // Add JWT token to headers for this request as well
+          },
+        }
       );
+
       if (!imageResponse.ok) {
         throw new Error("Failed to fetch generated image");
       }
