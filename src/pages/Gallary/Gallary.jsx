@@ -10,7 +10,7 @@ const Gallary = () => {
     <>
       <Navbar></Navbar>
       <p className="text-slate-600 font-bold text-3xl my-[5%] text-center">
-        Anime World- Users Creations
+        Anime World - Users Creations
       </p>
 
       {/* this is for specific animy card   */}
