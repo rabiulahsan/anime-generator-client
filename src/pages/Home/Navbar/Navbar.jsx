@@ -99,7 +99,7 @@ const Navbar = () => {
           )}
           {user && (
             <img
-              className="h-[50px] w-[50px] object-cover rounded-full"
+              className="h-[40px] w-[40px] object-cover rounded-full cursor-pointer"
               src={user.photoURL}
               alt={user.displayName}
             />
