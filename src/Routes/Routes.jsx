@@ -14,6 +14,7 @@ import Reimagine from "../pages/ToolsPage/Reimagine";
 import Upscaling from "../pages/ToolsPage/Upscaling";
 import CreationPage from "../pages/CreationPage/CreationPage";
 import PrivateRoute from "./PrivateRoute";
+import Payments from "../pages/Payments/Payments";
 
 export const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
       {
         path: "/pricing",
         element: <PricingPage></PricingPage>,
+      },
+      {
+        path: "/payments",
+        element: <Payments></Payments>,
       },
     ],
   },

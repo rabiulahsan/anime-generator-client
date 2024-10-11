@@ -6,6 +6,7 @@ import UseAuth from "../../Hooks/UseAuth/UseAuth";
 import UseCoin from "../../Hooks/UseCoin/UseCoin";
 import UseUserData from "../../Hooks/UseUserData/UseUserData";
 import UseMyAllAnimies from "../../Hooks/UseMyAllAnimies/UseMyAllAnimies";
+import { Link } from "react-router-dom";
 
 const ProfileModals = ({ showProfileModal, handleProfileClose }) => {
   const modalRef = useRef();
@@ -75,12 +76,16 @@ const ProfileModals = ({ showProfileModal, handleProfileClose }) => {
         </p>
 
         <div className=" flex justify-between items-center w-3/4 mx-auto mt-5">
-          <button className="px-3 py-2 bg-slate-600 text-slate-50 rounded font-semibold hover:bg-slate-700">
-            Payments
-          </button>
-          <button className="flex items-center gap-x-2 px-3 py-2 rounded bg-sky-500 text-white font-semibold hover:bg-sky-600">
-            Buy Coins <GiTwoCoins></GiTwoCoins>
-          </button>
+          <Link to="/payments">
+            <button className="px-3 py-2 bg-slate-600 text-slate-50 rounded font-semibold hover:bg-slate-700">
+              Payments
+            </button>
+          </Link>
+          <Link to="/pricing">
+            <button className="flex items-center gap-x-2 px-3 py-2 rounded bg-sky-500 text-white font-semibold hover:bg-sky-600">
+              Buy Coins <GiTwoCoins></GiTwoCoins>
+            </button>
+          </Link>
         </div>
 
         <button
