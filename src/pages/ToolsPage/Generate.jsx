@@ -64,6 +64,7 @@ const Generate = () => {
     const promptData = {
       prompt: prompt,
       email: user?.email,
+      name: user?.displayName,
     };
     console.log(promptData);
     try {

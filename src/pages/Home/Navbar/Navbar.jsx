@@ -4,11 +4,15 @@ import { useState } from "react";
 import { IoSearch } from "react-icons/io5";
 import LoginModals from "../../../Shared/Modals/LoginModals";
 import UseAuth from "../../../Hooks/UseAuth/UseAuth";
+import UseUserData from "../../../Hooks/UseUserData/UseUserData";
 
 const Navbar = () => {
   const [searchValue, setSearchValue] = useState("");
   const { logOut, user } = UseAuth();
   // console.log(user);
+
+  const [userData] = UseUserData();
+  console.log(userData);
   const navigate = useNavigate();
 
   // functon for logout

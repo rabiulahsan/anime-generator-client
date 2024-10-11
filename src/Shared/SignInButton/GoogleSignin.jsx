@@ -7,7 +7,6 @@ import UseAuth from "../../Hooks/UseAuth/UseAuth";
 
 const GoogleSignin = ({ handleClose }) => {
   const { googleLogin } = UseAuth();
-  // console.log(user);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -25,7 +24,7 @@ const GoogleSignin = ({ handleClose }) => {
           token: 3,
         };
         handleClose();
-        console.log(saveUser);
+        // console.log(saveUser);
         fetch("http://localhost:5000/users/", {
           method: "POST",
           headers: {
