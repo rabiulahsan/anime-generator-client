@@ -7,7 +7,7 @@ import { FaUserTie } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <div className="flex  justify-center items-centermt-[5%] py-[3%]  bg-slate-800 ">
+    <div className="flex  justify-center items-centermt-[5%] py-[3%]  bg-slate-800">
       <div className="">
         <div className="flex justify-center items-center gap-5  mb-4">
           <a

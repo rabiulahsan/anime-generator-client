@@ -14,15 +14,10 @@ const CreationPage = () => {
 
       {myAnimies.length === 0 ? (
         // Display 404 if no anime cards
-        <div className="flex justify-center items-center ">
+        <div className="flex justify-center items-center my-[3%]">
           <div className="">
-            <Player
-              className="h-[350px]"
-              autoplay
-              loop
-              src="/empty.json"
-            ></Player>
-            <p className="text-3xl font-extrabold text-slate-600 text-center">
+            <Player className="h-[300px]" autoplay loop src="/no.json"></Player>
+            <p className="text-3xl font-extrabold text-slate-600 text-center mt-[5%]">
               You don&apos;t have any creations
             </p>
           </div>
