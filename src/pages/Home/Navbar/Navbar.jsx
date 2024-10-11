@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import ActiveLink from "../../../Components/ActiveLink/ActiveLink";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IoSearch } from "react-icons/io5";
 import { GiTwoCoins } from "react-icons/gi";
 import LoginModals from "../../../Shared/Modals/LoginModals";
@@ -8,12 +8,20 @@ import UseAuth from "../../../Hooks/UseAuth/UseAuth";
 import UseUserData from "../../../Hooks/UseUserData/UseUserData";
 
 const Navbar = () => {
-  const [searchValue, setSearchValue] = useState("");
-  const { logOut, user } = UseAuth();
-  // console.log(user);
-
   const [userData] = UseUserData();
   console.log(userData?.coin);
+  const [searchValue, setSearchValue] = useState("");
+  const { logOut, user } = UseAuth();
+  const [coin, setCoin] = useState(userData?.coin);
+  // console.log(user);
+
+  // Use useEffect to update coin whenever userData changes
+  useEffect(() => {
+    if (userData?.coin !== undefined) {
+      setCoin(userData.coin);
+    }
+  }, [userData]); // This effect will run every time userData changes
+
   const navigate = useNavigate();
 
   // functon for logout
@@ -105,12 +113,12 @@ const Navbar = () => {
           {user && (
             <p
               title="Coins you have"
-              className="flex items-center gap-x-1 bg-slate-200 py-2 px-4 rounded-full text-xl font-semibold text-slate-700"
+              className="flex items-center gap-x-1 bg-slate-200 py-2 px-4 rounded-full text-lg font-semibold text-slate-700"
             >
-              <span className="">
+              <span className="text-xl">
                 <GiTwoCoins></GiTwoCoins>
               </span>
-              {userData?.coin}
+              {coin}
             </p>
           )}
 
