@@ -44,7 +44,7 @@ const Navbar = () => {
   //for showing profile  modal
   const [showProfileModal, setShowProfileModal] = useState(false);
   const openProfileModal = () => {
-    setShowModal(true);
+    setShowProfileModal(true);
   };
   const closeProfileModal = () => setShowProfileModal(false);
 
