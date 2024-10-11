@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 
 import { useEffect, useRef } from "react";
-import GithubSignin from "../SignInButton/GithubSignin";
+
 import GoogleSignin from "../SignInButton/GoogleSignin";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 

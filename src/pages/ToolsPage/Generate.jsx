@@ -48,7 +48,9 @@ const Generate = () => {
 
     // Check if user has enough coins
     if (coin === 0) {
-      alert("You don't have enough coins to generate.");
+      alert(
+        "You don't have enough coins to generate. Buy subscription and come back."
+      );
       return;
     }
     // Check if prompt is empty

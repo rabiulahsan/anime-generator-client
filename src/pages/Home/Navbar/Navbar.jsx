@@ -7,6 +7,7 @@ import LoginModals from "../../../Shared/Modals/LoginModals";
 import UseAuth from "../../../Hooks/UseAuth/UseAuth";
 import useCoin from "../../../Hooks/UseCoin/UseCoin";
 import UseUserData from "../../../Hooks/UseUserData/UseUserData";
+import ProfileModals from "../../../Shared/Modals/ProfileModals";
 
 const Navbar = () => {
   const [userData] = UseUserData();
@@ -33,14 +34,19 @@ const Navbar = () => {
     }
   };
 
-  //for showing modal
+  //for showing log in  modal
   const [showModal, setShowModal] = useState(false);
-
   const openModal = () => {
     setShowModal(true);
   };
-
   const closeModal = () => setShowModal(false);
+
+  //for showing profile  modal
+  const [showProfileModal, setShowProfileModal] = useState(false);
+  const openProfileModal = () => {
+    setShowModal(true);
+  };
+  const closeProfileModal = () => setShowProfileModal(false);
 
   return (
     <div className="sticky top-0 left-0 z-50">
@@ -118,6 +124,7 @@ const Navbar = () => {
 
           {user && (
             <img
+              onClick={openProfileModal}
               className="h-[40px] w-[40px] object-cover rounded-full cursor-pointer"
               src={user.photoURL}
               alt={user.displayName}
@@ -138,6 +145,10 @@ const Navbar = () => {
       </div>
       {/* Modal */}
       <LoginModals showModal={showModal} handleClose={closeModal} />
+      <ProfileModals
+        showProfileModal={showProfileModal}
+        handleProfileClose={closeProfileModal}
+      ></ProfileModals>
     </div>
   );
 };
