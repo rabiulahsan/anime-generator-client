@@ -22,9 +22,11 @@ const GoogleSignin = ({ handleClose }) => {
           email: loggedInUser.email,
           image: loggedInUser?.photoURL,
           type: "free",
+          token: 3,
         };
         handleClose();
-        fetch("https://localhost:5000/users", {
+        console.log(saveUser);
+        fetch("http://localhost:5000/users/", {
           method: "POST",
           headers: {
             "content-type": "application/json",
