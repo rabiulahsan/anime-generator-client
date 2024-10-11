@@ -6,16 +6,13 @@ import { GiTwoCoins } from "react-icons/gi";
 import LoginModals from "../../../Shared/Modals/LoginModals";
 import UseAuth from "../../../Hooks/UseAuth/UseAuth";
 import useCoin from "../../../Hooks/UseCoin/UseCoin";
-import UseUserData from "../../../Hooks/UseUserData/UseUserData";
 import ProfileModals from "../../../Shared/Modals/ProfileModals";
 
 const Navbar = () => {
-  const [userData] = UseUserData();
-  console.log(userData?.coin);
   const [searchValue, setSearchValue] = useState("");
   const { logOut, user } = UseAuth();
   const { coin } = useCoin();
-  console.log(coin);
+  // console.log(coin);
 
   const navigate = useNavigate();
 
