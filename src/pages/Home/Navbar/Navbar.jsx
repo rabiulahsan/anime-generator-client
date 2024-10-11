@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import ActiveLink from "../../../Components/ActiveLink/ActiveLink";
 import { useState } from "react";
 import { IoSearch } from "react-icons/io5";
+import { GiTwoCoins } from "react-icons/gi";
 import LoginModals from "../../../Shared/Modals/LoginModals";
 import UseAuth from "../../../Hooks/UseAuth/UseAuth";
 import UseUserData from "../../../Hooks/UseUserData/UseUserData";
@@ -12,7 +13,7 @@ const Navbar = () => {
   // console.log(user);
 
   const [userData] = UseUserData();
-  console.log(userData);
+  console.log(userData?.coin);
   const navigate = useNavigate();
 
   // functon for logout
@@ -101,6 +102,18 @@ const Navbar = () => {
               Log in
             </button>
           )}
+          {user && (
+            <p
+              title="Coins you have"
+              className="flex items-center gap-x-1 bg-slate-200 py-2 px-4 rounded-full text-xl font-semibold text-slate-700"
+            >
+              <span className="">
+                <GiTwoCoins></GiTwoCoins>
+              </span>
+              {userData?.coin}
+            </p>
+          )}
+
           {user && (
             <img
               className="h-[40px] w-[40px] object-cover rounded-full cursor-pointer"

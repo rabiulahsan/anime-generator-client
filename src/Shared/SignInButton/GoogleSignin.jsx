@@ -21,7 +21,7 @@ const GoogleSignin = ({ handleClose }) => {
           email: loggedInUser.email,
           image: loggedInUser?.photoURL,
           type: "free",
-          token: 3,
+          coin: 3,
         };
         handleClose();
         // console.log(saveUser);
