@@ -1,10 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import ActiveLink from "../../../Components/ActiveLink/ActiveLink";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { IoSearch } from "react-icons/io5";
 import { GiTwoCoins } from "react-icons/gi";
 import LoginModals from "../../../Shared/Modals/LoginModals";
 import UseAuth from "../../../Hooks/UseAuth/UseAuth";
+import useCoin from "../../../Hooks/UseCoin/UseCoin";
 import UseUserData from "../../../Hooks/UseUserData/UseUserData";
 
 const Navbar = () => {
@@ -12,15 +13,8 @@ const Navbar = () => {
   console.log(userData?.coin);
   const [searchValue, setSearchValue] = useState("");
   const { logOut, user } = UseAuth();
-  const [coin, setCoin] = useState(userData?.coin);
-  // console.log(user);
-
-  // Use useEffect to update coin whenever userData changes
-  useEffect(() => {
-    if (userData?.coin !== undefined) {
-      setCoin(userData.coin);
-    }
-  }, [userData]); // This effect will run every time userData changes
+  const { coin } = useCoin();
+  console.log(coin);
 
   const navigate = useNavigate();
 

@@ -4,12 +4,14 @@ import { RiAiGenerate } from "react-icons/ri";
 import UseAuth from "../../Hooks/UseAuth/UseAuth";
 import { IoIosSave } from "react-icons/io";
 import LoginModals from "../../Shared/Modals/LoginModals";
+import UseCoin from "../../Hooks/UseCoin/UseCoin";
 
 const Generate = () => {
   const [prompt, setPrompt] = useState(""); // To store the user's prompt
   const [error, setError] = useState(""); // To store validation error
   const [loading, setLoading] = useState(false);
   const { user } = UseAuth();
+  const { coin, decreaseCoin } = UseCoin();
   const [generatedImage, setGeneratedImage] = useState(null);
 
   //for showing modal
@@ -44,6 +46,11 @@ const Generate = () => {
       return;
     }
 
+    // Check if user has enough coins
+    if (coin === 0) {
+      alert("You don't have enough coins to generate.");
+      return;
+    }
     // Check if prompt is empty
     if (!prompt.trim()) {
       alert("Prompt cannot be empty.");
@@ -66,7 +73,8 @@ const Generate = () => {
       email: user?.email,
       name: user?.displayName,
     };
-    console.log(promptData);
+    // console.log(promptData);
+
     try {
       // Retrieve JWT token from localStorage
       const token = localStorage.getItem("access-token");
@@ -107,8 +115,11 @@ const Generate = () => {
       }
 
       const imageData = await imageResponse.json();
-      console.log(imageData);
+      // console.log(imageData);
       setGeneratedImage(imageData.image_url);
+
+      // Decrease coin after successful generation
+      await decreaseCoin(); // This will update both the backend and frontend
     } catch (error) {
       console.error("Error during the API request:", error);
       alert("Something went wrong during image processing.");
