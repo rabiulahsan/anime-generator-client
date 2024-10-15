@@ -2,6 +2,8 @@ import { IoIosSave } from "react-icons/io";
 import ImageUploader from "../../Shared/ImageUploader/ImageUploader";
 import StepsCard from "../../Shared/StepsCard/StepsCard";
 import { useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Changebg = () => {
   const [photo, setPhoto] = useState(null);
@@ -29,11 +31,28 @@ const Changebg = () => {
     },
   ];
 
+  // Initialize toast once in your app
+  const showToast = (message, type = "info", position = "top-right") => {
+    toast(message, {
+      position,
+      type,
+      autoClose: 5000, // Auto close after 5 seconds
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (file && file.size <= 10 * 1024 * 1024) {
       if (!["image/png", "image/jpeg", "image/webp"].includes(file.type)) {
-        alert("Please upload an image in PNG, JPEG, or WebP format.");
+        showToast(
+          "Please upload an image in PNG, JPEG, or WebP format.",
+          "error"
+        );
         return;
       }
       // Resize image if it exceeds 1024px in width or height
@@ -47,9 +66,10 @@ const Changebg = () => {
       };
       reader.readAsDataURL(file); // Convert file to base64 format for display
     } else {
-      alert("File size exceeds 10MB or file type is not supported.");
-
-      //todo set sweetalert
+      showToast(
+        "File size exceeds 10MB or file type is not supported.",
+        "error"
+      );
     }
   };
 
@@ -101,7 +121,7 @@ const Changebg = () => {
   //processing for the upscaling via clipdrop api
   const handleUpload = async () => {
     if (!photo) {
-      alert("Please select an image.");
+      showToast("Please select an image.", "error");
       return;
     }
     // Validate prompt character length
@@ -118,31 +138,55 @@ const Changebg = () => {
     form.append("image_file", photo); // Append image file
     form.append("prompt", prompt);
 
-    try {
-      const response = await fetch(
-        "https://clipdrop-api.co/replace-background/v1",
-        {
-          method: "POST",
-          headers: {
-            "x-api-key": import.meta.env.VITE_CLIP_DROP_KEY, // Replace with your actual API key
-          },
-          body: form,
+    const replaceBgPromise = async () => {
+      try {
+        const response = await fetch(
+          "https://clipdrop-api.co/replace-background/v1",
+          {
+            method: "POST",
+            headers: {
+              "x-api-key": import.meta.env.VITE_CLIP_DROP_KEY, // Replace with your actual API key
+            },
+            body: form,
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
         }
-      );
-      console.log(response);
-      const buffer = await response.arrayBuffer();
-      const blob = new Blob([buffer], { type: "image/png" });
-      const imageUrl = URL.createObjectURL(blob);
 
-      setNewBgImage(imageUrl);
-    } catch (error) {
-      console.error("Error during the API request:", error);
-      alert("Something went wrong during image processing.");
-    } finally {
-      setLoading(false);
-    }
+        const buffer = await response.arrayBuffer();
+        const blob = new Blob([buffer], { type: "image/png" });
+        const imageUrl = URL.createObjectURL(blob);
+
+        setNewBgImage(imageUrl); // Set the new background image
+        return imageUrl;
+      } catch (error) {
+        console.error("Error during the API request:", error);
+        throw error; // Throw error for toast.promise to catch
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    // Use toast.promise for managing state notifications
+    toast.promise(
+      replaceBgPromise(),
+      {
+        pending: "Replacing background...",
+        success: "Background replaced successfully! 🎉",
+        error: "Failed to replace background. 😞",
+      },
+      {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      }
+    );
   };
-
   // Function to handle the download
   const handleSaveImage = () => {
     // Create an anchor element

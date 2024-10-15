@@ -64,8 +64,6 @@ const Upscaling = () => {
         "File size exceeds 10MB or file type is not supported.",
         "error"
       );
-
-      //toast
     }
   };
 
@@ -126,7 +124,7 @@ const Upscaling = () => {
         error: "Something went wrong during image processing. 😞",
       },
       {
-        position: "top-center",
+        position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,

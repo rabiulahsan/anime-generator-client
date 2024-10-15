@@ -125,7 +125,7 @@ const Removebg = () => {
         error: "Failed to remove background. 😞",
       },
       {
-        position: "top-center",
+        position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
