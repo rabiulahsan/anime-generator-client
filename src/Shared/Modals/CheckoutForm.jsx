@@ -12,6 +12,24 @@ const CheckoutForm = ({ details, clientSecret }) => {
   const { coins, price, name } = details;
   const { user } = UseAuth();
 
+  //create functions for posting the paymentdetails to database
+  const sendPaymentDetails = async (paymentDetails) => {
+    try {
+      const response = await fetch("http://localhost:5000/payments", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(paymentDetails), // Send the payment details
+      });
+
+      const data = await response.json();
+      console.log(data.message); // Success message
+    } catch (error) {
+      console.error("Error sending payment details:", error);
+    }
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
@@ -54,8 +72,20 @@ const CheckoutForm = ({ details, clientSecret }) => {
       // Handle error here
     } else if (paymentIntent && paymentIntent.status === "succeeded") {
       // Handle successful payment here
-      console.log(paymentIntent);
       setTrxId(paymentIntent.id);
+
+      const paymentDetails = {
+        price,
+        package: name,
+        name: user?.displayName,
+        email: user?.email,
+        coins,
+        trxId,
+        time: new Date(),
+      };
+
+      // 2. Send payment details to the backend
+      await sendPaymentDetails(paymentDetails);
     }
   };
 
