@@ -2,6 +2,8 @@ import { IoIosSave } from "react-icons/io";
 import ImageUploader from "../../Shared/ImageUploader/ImageUploader";
 import StepsCard from "../../Shared/StepsCard/StepsCard";
 import { useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Removebg = () => {
   const [photo, setPhoto] = useState(null);
@@ -27,11 +29,29 @@ const Removebg = () => {
     },
   ];
 
+  // Initialize toast once in your app
+
+  const showToast = (message, type = "info", position = "top-right") => {
+    toast(message, {
+      position,
+      type,
+      autoClose: 5000, // Auto close after 5 seconds
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file && file.size <= 10 * 1024 * 1024) {
       if (!["image/png", "image/jpeg", "image/webp"].includes(file.type)) {
-        alert("Please upload an image in PNG, JPEG, or WebP format.");
+        showToast(
+          "Please upload an image in PNG, JPEG, or WebP format.",
+          "error"
+        );
         return;
       }
       setPhoto(file);
@@ -43,7 +63,10 @@ const Removebg = () => {
       };
       reader.readAsDataURL(file); // Convert file to base64 format for display
     } else {
-      alert("File size exceeds 10MB or file type is not supported.");
+      showToast(
+        "File size exceeds 10MB or file type is not supported.",
+        "error"
+      );
 
       //todo set sweetalert
     }
@@ -52,7 +75,7 @@ const Removebg = () => {
   //processing for the upscaling via clipdrop api
   const handleUpload = async () => {
     if (!photo) {
-      alert("Please select an image.");
+      showToast("Please select an image.", "error");
       return;
     }
 
@@ -62,29 +85,54 @@ const Removebg = () => {
     const form = new FormData();
     form.append("image_file", photo);
 
-    try {
-      const response = await fetch(
-        "https://clipdrop-api.co/remove-background/v1",
-        {
-          method: "POST",
-          headers: {
-            "x-api-key": import.meta.env.VITE_CLIP_DROP_KEY, // Replace with your actual API key
-          },
-          body: form,
-        }
-      );
-      console.log(response);
-      const buffer = await response.arrayBuffer();
-      const blob = new Blob([buffer], { type: "image/png" });
-      const imageUrl = URL.createObjectURL(blob);
+    const removeBgPromise = async () => {
+      try {
+        const response = await fetch(
+          "https://clipdrop-api.co/remove-background/v1",
+          {
+            method: "POST",
+            headers: {
+              "x-api-key": import.meta.env.VITE_CLIP_DROP_KEY, // Replace with your actual API key
+            },
+            body: form,
+          }
+        );
 
-      setBgRemovedImage(imageUrl);
-    } catch (error) {
-      console.error("Error during the API request:", error);
-      alert("Something went wrong during image processing.");
-    } finally {
-      setLoading(false);
-    }
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const buffer = await response.arrayBuffer();
+        const blob = new Blob([buffer], { type: "image/png" });
+        const imageUrl = URL.createObjectURL(blob);
+
+        setBgRemovedImage(imageUrl); // Set the image URL for the background removed image
+        return imageUrl;
+      } catch (error) {
+        console.error("Error during the API request:", error);
+        throw error; // Throw error to handle it in toast.promise
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    // Use toast.promise to handle different states
+    toast.promise(
+      removeBgPromise(),
+      {
+        pending: "Removing background...",
+        success: "Background removed successfully! 🎉",
+        error: "Failed to remove background. 😞",
+      },
+      {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      }
+    );
   };
 
   // Function to handle the download

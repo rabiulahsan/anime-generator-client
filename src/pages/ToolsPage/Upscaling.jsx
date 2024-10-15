@@ -2,6 +2,8 @@ import { useState } from "react";
 import StepsCard from "../../Shared/StepsCard/StepsCard";
 import { IoIosSave } from "react-icons/io";
 import ImageUploader from "../../Shared/ImageUploader/ImageUploader";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Upscaling = () => {
   const [photo, setPhoto] = useState(null);
@@ -27,11 +29,26 @@ const Upscaling = () => {
     },
   ];
 
+  // Initialize toast once in your app
+
+  const showToast = (message, type = "info", position = "top-right") => {
+    toast(message, {
+      position,
+      type,
+      autoClose: 5000, // Auto close after 5 seconds
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file && file.size <= 10 * 1024 * 1024) {
       if (!["image/png", "image/jpeg", "image/webp"].includes(file.type)) {
-        alert("Please upload an image in PNG, JPEG, or WebP format.");
+        showToast("Please select a png,  jpg or webp file", "error");
         return;
       }
       setPhoto(file);
@@ -43,16 +60,20 @@ const Upscaling = () => {
       };
       reader.readAsDataURL(file); // Convert file to base64 format for display
     } else {
-      alert("File size exceeds 10MB or file type is not supported.");
+      showToast(
+        "File size exceeds 10MB or file type is not supported.",
+        "error"
+      );
 
-      //todo set sweetalert
+      //toast
     }
   };
 
   //processing for the upscaling via clipdrop api
+
   const handleUpload = async () => {
     if (!photo) {
-      alert("Please select an image.");
+      showToast("Please select an image.", "error");
       return;
     }
 
@@ -64,29 +85,55 @@ const Upscaling = () => {
     form.append("target_width", 2048); // Append target width
     form.append("target_height", 2048); // Append target height
 
-    try {
-      const response = await fetch(
-        "https://clipdrop-api.co/image-upscaling/v1/upscale",
-        {
-          method: "POST",
-          headers: {
-            "x-api-key": import.meta.env.VITE_CLIP_DROP_KEY, // Replace with your actual API key
-          },
-          body: form,
-        }
-      );
-      console.log(response);
-      const buffer = await response.arrayBuffer();
-      const blob = new Blob([buffer], { type: "image/png" });
-      const imageUrl = URL.createObjectURL(blob);
+    // Use toast.promise and wrap your async function inside
+    const upscalePromise = async () => {
+      try {
+        const response = await fetch(
+          "https://clipdrop-api.co/image-upscaling/v1/upscale",
+          {
+            method: "POST",
+            headers: {
+              "x-api-key": import.meta.env.VITE_CLIP_DROP_KEY, // Replace with your actual API key
+            },
+            body: form,
+          }
+        );
 
-      setUpscaledImage(imageUrl);
-    } catch (error) {
-      console.error("Error during the API request:", error);
-      alert("Something went wrong during image processing.");
-    } finally {
-      setLoading(false);
-    }
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const buffer = await response.arrayBuffer();
+        const blob = new Blob([buffer], { type: "image/png" });
+        const imageUrl = URL.createObjectURL(blob);
+
+        setUpscaledImage(imageUrl);
+        return imageUrl; // Success, return the image URL
+      } catch (error) {
+        console.error("Error during the API request:", error);
+        throw error; // Rethrow error to handle it in the toast.promise
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    // Show the toast with promise state handling
+    toast.promise(
+      upscalePromise(),
+      {
+        pending: "Upscaling in progress...",
+        success: "Upscaling completed successfully! 🎉",
+        error: "Something went wrong during image processing. 😞",
+      },
+      {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      }
+    );
   };
 
   // Function to handle the download

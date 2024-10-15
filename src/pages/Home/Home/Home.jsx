@@ -5,6 +5,7 @@ import Navbar from "../Navbar/Navbar";
 import Offers from "../Offers/Offers";
 import Questions from "../Questions/Questions";
 import Workwith from "../Workwith/Workwith";
+import Footer from "../../../Shared/Footer/Footer";
 
 const Home = () => {
   return (
@@ -18,6 +19,7 @@ const Home = () => {
         <Questions></Questions>
         <About></About>
       </div>
+      <Footer></Footer>
     </div>
   );
 };
