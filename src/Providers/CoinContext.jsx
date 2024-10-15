@@ -54,7 +54,7 @@ const CoinProvider = ({ children }) => {
   };
 
   return (
-    <CoinContext.Provider value={{ coin, decreaseCoin, fetchCoin }}>
+    <CoinContext.Provider value={{ coin, decreaseCoin, fetchCoin, setCoin }}>
       {children}
     </CoinContext.Provider>
   );

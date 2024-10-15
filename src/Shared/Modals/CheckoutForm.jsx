@@ -2,6 +2,7 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useState } from "react";
 import UseAuth from "../../Hooks/UseAuth/UseAuth";
+import UseCoin from "../../Hooks/UseCoin/UseCoin";
 
 const CheckoutForm = ({ details, clientSecret }) => {
   const stripe = useStripe();
@@ -10,6 +11,7 @@ const CheckoutForm = ({ details, clientSecret }) => {
   const [cardError, setCardError] = useState("");
   const [trxId, setTrxId] = useState("");
   const { coins, price, name } = details;
+  const { coin, setCoin } = UseCoin();
   const { user } = UseAuth();
 
   //create functions for posting the paymentdetails to database
@@ -30,6 +32,36 @@ const CheckoutForm = ({ details, clientSecret }) => {
     }
   };
 
+  //create functions for increase the coin amount
+  const increaseCoin = async () => {
+    try {
+      // increase coin by the number of coins
+      const updatedCoin = coin + coins;
+
+      // Call the API to update the coin value in the database
+      const response = await fetch(
+        `http://localhost:5000/users/update?email=${user.email}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ coin: updatedCoin }), // Send only the updated coin value
+        }
+      );
+
+      if (response.ok) {
+        // Update the local coin state with the new value
+        setCoin(updatedCoin);
+      } else {
+        console.error("Failed to decrease coin in the database");
+      }
+    } catch (error) {
+      console.error("Error decreasing coin:", error);
+    }
+  };
+
+  //function for payment button
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
@@ -73,6 +105,7 @@ const CheckoutForm = ({ details, clientSecret }) => {
     } else if (paymentIntent && paymentIntent.status === "succeeded") {
       // Handle successful payment here
       setTrxId(paymentIntent.id);
+      await increaseCoin();
 
       const paymentDetails = {
         price,
