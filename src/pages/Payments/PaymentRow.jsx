@@ -13,10 +13,10 @@ const PaymentRow = ({ payment }) => {
   //   console.log(type);
   return (
     <tr className="hover:bg-slate-100 w-full text-center  ">
-      <td className="py-5">{email}</td>
-      <td className="">{type}</td>
-      <td className="">{trxId}</td>
-      <td className="">{price}</td>
+      <td className="py-5 font-semibold">{email}</td>
+      <td className="font-bold">{type}</td>
+      <td className="font-semibold">{trxId}</td>
+      <td className="font-bold">{price} $</td>
       <td className="">{formattedTime}</td>
     </tr>
   );
