@@ -29,7 +29,7 @@ const PricingPage = () => {
   return (
     <div>
       <Navbar></Navbar>
-      <SectionTitle heading="Buy Your Best Packages"></SectionTitle>
+      <SectionTitle heading="Buy Your Best Package"></SectionTitle>
       <div className="flex justify-center items-center gap-x-8 mb-[5%]">
         {plans.map((plan) => (
           <PricingCard key={plan.id} details={plan}></PricingCard>

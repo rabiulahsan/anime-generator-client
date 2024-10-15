@@ -5,7 +5,6 @@ import { GiTwoCoins } from "react-icons/gi";
 import UseAuth from "../../Hooks/UseAuth/UseAuth";
 import UseCoin from "../../Hooks/UseCoin/UseCoin";
 import UseUserData from "../../Hooks/UseUserData/UseUserData";
-import { Link } from "react-router-dom";
 
 const ProfileModals = ({ showPaymentModal, handlePaymentClose, details }) => {
   const modalRef = useRef();
@@ -46,6 +45,19 @@ const ProfileModals = ({ showPaymentModal, handlePaymentClose, details }) => {
         ref={modalRef}
         className="bg-white p-8 rounded-xl w-[400px] relative"
       >
+        <p className="text-center text-slate-600 font-bold text-xl">
+          Complete Your Purchase
+        </p>
+        <p className="text-center font-semibold text-slate-500 my-4 ">
+          You&apos;re purchasing our{" "}
+          <span className="font-bold text-xl text">{name}</span> plan, which
+          includes{" "}
+          <span className="font-bold text-xl text-orange-500 inline-flex items-center gap-x-1">
+            {coins} <GiTwoCoins></GiTwoCoins>
+          </span>{" "}
+          for just{" "}
+          <span className="font-bold text-xl text-sky-500">{price}$</span>
+        </p>
         <button
           className="absolute -top-4 -right-4 text-slate-100 text-3xl bg-sky-500  rounded-full "
           onClick={handlePaymentClose}
