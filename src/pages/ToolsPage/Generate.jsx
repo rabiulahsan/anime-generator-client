@@ -5,6 +5,8 @@ import UseAuth from "../../Hooks/UseAuth/UseAuth";
 import { IoIosSave } from "react-icons/io";
 import LoginModals from "../../Shared/Modals/LoginModals";
 import UseCoin from "../../Hooks/UseCoin/UseCoin";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Generate = () => {
   const [prompt, setPrompt] = useState(""); // To store the user's prompt
@@ -39,26 +41,39 @@ const Generate = () => {
     },
   ];
 
+  // Initialize toast once in your app
+  const showToast = (message, type = "info", position = "top-right") => {
+    toast(message, {
+      position,
+      type,
+      autoClose: 5000, // Auto close after 5 seconds
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+
   const handleGenerate = async () => {
     if (!user) {
-      alert("You need to log in to use this feature.");
+      showToast("You need to log in to use this feature.", "warning");
       openModal(); // Open the login modal
       return;
     }
 
     // Check if user has enough coins
     if (coin === 0) {
-      alert(
-        "You don't have enough coins to generate. Buy subscription and come back."
+      showToast(
+        "You don't have enough coins to generate. Buy subscription and come back.",
+        "error"
       );
       return;
     }
     // Check if prompt is empty
     if (!prompt.trim()) {
-      alert("Prompt cannot be empty.");
+      showToast("Prompt cannot be empty.", "error");
       return;
-
-      //todo sweetalert
     }
 
     // Validate prompt character length
@@ -77,57 +92,78 @@ const Generate = () => {
     };
     // console.log(promptData);
 
-    try {
-      // Retrieve JWT token from localStorage
-      const token = localStorage.getItem("access-token");
+    // Define the entire process as a promise for toast
+    const generateAnimePromise = async () => {
+      try {
+        // Retrieve JWT token from localStorage
+        const token = localStorage.getItem("access-token");
 
-      // Make the POST request to generate the image
-      const response = await fetch("http://localhost:5000/animies/generate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json", // Ensure the server reads it as JSON
-          "x-api-key": import.meta.env.VITE_CLIP_DROP_KEY, // Replace with your actual API key
-          Authorization: `Bearer ${token}`, // Add JWT token to headers
-        },
-        body: JSON.stringify(promptData), // Convert the object to JSON string
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to generate image");
-      }
-
-      const result = await response.json();
-      console.log(result);
-
-      const { insertedId } = result; // Extract the insertedId
-
-      // Fetch the generated image using the insertedId
-      const imageResponse = await fetch(
-        `http://localhost:5000/animies/generated/${insertedId}`,
-        {
-          method: "GET", // or POST if needed
+        // Make the POST request to generate the image
+        const response = await fetch("http://localhost:5000/animies/generate", {
+          method: "POST",
           headers: {
-            Authorization: `Bearer ${token}`, // Add JWT token to headers for this request as well
+            "Content-Type": "application/json", // Ensure the server reads it as JSON
+            "x-api-key": import.meta.env.VITE_CLIP_DROP_KEY, // Replace with your actual API key
+            Authorization: `Bearer ${token}`, // Add JWT token to headers
           },
+          body: JSON.stringify(promptData), // Convert the object to JSON string
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to generate image");
         }
-      );
 
-      if (!imageResponse.ok) {
-        throw new Error("Failed to fetch generated image");
+        const result = await response.json();
+        console.log(result);
+
+        const { insertedId } = result; // Extract the insertedId
+
+        // Fetch the generated image using the insertedId
+        const imageResponse = await fetch(
+          `http://localhost:5000/animies/generated/${insertedId}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`, // Add JWT token to headers for this request as well
+            },
+          }
+        );
+
+        if (!imageResponse.ok) {
+          throw new Error("Failed to fetch generated image");
+        }
+
+        const imageData = await imageResponse.json();
+        setGeneratedImage(imageData.image_url); // Set the generated image URL
+
+        // Decrease coin after successful generation
+        await decreaseCoin(); // This will update both the backend and frontend
+        return imageData.image_url; // Return image URL for toast success handling
+      } catch (error) {
+        console.error("Error during the API request:", error);
+        throw error; // Re-throw error for toast.promise to catch
+      } finally {
+        setLoading(false);
       }
+    };
 
-      const imageData = await imageResponse.json();
-      // console.log(imageData);
-      setGeneratedImage(imageData.image_url);
-
-      // Decrease coin after successful generation
-      await decreaseCoin(); // This will update both the backend and frontend
-    } catch (error) {
-      console.error("Error during the API request:", error);
-      alert("Something went wrong during image processing.");
-    } finally {
-      setLoading(false);
-    }
+    // Use toast.promise for managing the process with real-time feedback
+    toast.promise(
+      generateAnimePromise(),
+      {
+        pending: "Generating your anime image...",
+        success: "Anime image generated successfully! 🎉",
+        error: "Failed to generate the image. 😞",
+      },
+      {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      }
+    );
   };
 
   // Function to handle the download
