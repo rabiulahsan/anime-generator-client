@@ -1,15 +1,31 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GiTwoCoins } from "react-icons/gi";
 import PaymentModals from "../../Shared/Modals/PaymentModals";
 
 const PricingCard = ({ details }) => {
   const { price, coins, description, name } = details;
+  const [clientSecret, setClientSecret] = useState("");
 
   //for showing payment modal
   const [showPaymentModal, setShowPaymentModal] = useState(false);
+
+  // Function to handle the opening of the modal and API call
   const openPaymentModal = () => {
-    setShowPaymentModal(true);
+    // Call the API when opening the modal
+    fetch("http://localhost:5000/create-payment-intent", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ price }), // Send the price to the API
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setClientSecret(data.clientSecret); // Set the client secret from the API response
+        setShowPaymentModal(true); // Open the modal once the clientSecret is fetched
+      })
+      .catch((error) => {
+        console.error("Error fetching clientSecret:", error);
+      });
   };
   const closePaymentModal = () => setShowPaymentModal(false);
 

@@ -1,14 +1,15 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import { GiTwoCoins } from "react-icons/gi";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
 
-const ProfileModals = ({ showPaymentModal, handlePaymentClose, details }) => {
+const PaymentModals = ({ showPaymentModal, handlePaymentClose, details }) => {
   const modalRef = useRef();
   const { coins, price, name } = details;
+  const [clientSecret, setClientSecret] = useState("");
 
   // Close on 'Escape' key press
   useEffect(() => {
@@ -74,4 +75,4 @@ const ProfileModals = ({ showPaymentModal, handlePaymentClose, details }) => {
   );
 };
 
-export default ProfileModals;
+export default PaymentModals;
