@@ -17,11 +17,13 @@ const CheckoutForm = ({ details, clientSecret }) => {
 
   //create functions for posting the paymentdetails to database
   const sendPaymentDetails = async (paymentDetails) => {
+    console.log(localStorage.getItem("access-token"));
     try {
       const response = await fetch("http://localhost:5000/payments", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("access-token")}`, // Include authorization if required
         },
         body: JSON.stringify(paymentDetails), // Send the payment details
       });

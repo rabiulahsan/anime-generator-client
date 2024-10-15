@@ -9,7 +9,7 @@ const UseMyAllPayments = () => {
   useEffect(() => {
     // Fetch data using .then() and .catch() instead of async/await
     if (user?.email) {
-      fetch(`http://localhost:5000/animies/users?email=${user.email}`, {
+      fetch(`http://localhost:5000/payments?email=${user.email}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -18,7 +18,7 @@ const UseMyAllPayments = () => {
       })
         .then((response) => {
           if (!response.ok) {
-            throw new Error("Failed to fetch user's animies");
+            throw new Error("Failed to fetch user's payments");
           }
           return response.json(); // Convert response to JSON
         })
@@ -26,7 +26,7 @@ const UseMyAllPayments = () => {
           setMyPayments(data); // Set fetched data to state
         })
         .catch((error) => {
-          console.error("Error fetching user's animies:", error);
+          console.error("Error fetching user's payments:", error);
         })
         .finally(() => {
           setIsLoading(false); // Stop loading indicator
