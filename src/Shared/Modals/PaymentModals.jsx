@@ -2,18 +2,12 @@
 import { useEffect, useRef } from "react";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import { GiTwoCoins } from "react-icons/gi";
-import UseAuth from "../../Hooks/UseAuth/UseAuth";
-import UseCoin from "../../Hooks/UseCoin/UseCoin";
-import UseUserData from "../../Hooks/UseUserData/UseUserData";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
 
 const ProfileModals = ({ showPaymentModal, handlePaymentClose, details }) => {
   const modalRef = useRef();
-  const { user } = UseAuth();
-  const { coin } = UseCoin();
-  const [userData] = UseUserData();
   const { coins, price, name } = details;
 
   // Close on 'Escape' key press
@@ -40,9 +34,7 @@ const ProfileModals = ({ showPaymentModal, handlePaymentClose, details }) => {
   if (!showPaymentModal) return null;
 
   // load stripe by using publishable key and made a promise
-  const stripePromise = loadStripe(
-    "pk_test_51NI8qZKFO43bL9Un3dftyJodhx8YONM1dwSqZcqPS3sDB8qiC5HoI35BaPtwBNDGGxb3c7JI1aQWyYrxCapaZBwd00btWWRW0O"
-  );
+  const stripePromise = loadStripe(import.meta.env.VITE_Payment_KEY);
 
   return (
     <div
@@ -69,7 +61,7 @@ const ProfileModals = ({ showPaymentModal, handlePaymentClose, details }) => {
 
         {/* it is for stripe payment  */}
         <Elements stripe={stripePromise}>
-          <CheckoutForm></CheckoutForm>
+          <CheckoutForm details={details}></CheckoutForm>
         </Elements>
         <button
           className="absolute -top-4 -right-4 text-slate-100 text-3xl bg-sky-500  rounded-full "

@@ -1,10 +1,37 @@
+/* eslint-disable react/prop-types */
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useState } from "react";
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ details }) => {
   const stripe = useStripe();
-  const element = useElements();
+  const elements = useElements();
   const [loading, setLoading] = useState(false);
+  const { coins, price, name } = details;
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+
+    if (!stripe || !elements) return;
+    // console.log(details);
+
+    const cardElement = elements.getElement(CardElement);
+    if (cardElement == null) return;
+
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: "card",
+      card: cardElement,
+    });
+
+    if (error) {
+      console.log("[error]", error);
+      setLoading(false);
+    } else {
+      console.log("[PaymentMethod]", paymentMethod);
+      setLoading(false);
+      // Process payment here
+    }
+  };
 
   return (
     <div>
@@ -35,13 +62,15 @@ const CheckoutForm = () => {
         </div>
 
         {/* Submit Button */}
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition-colors"
-          disabled={!stripe || loading}
-        >
-          {loading ? "Processing..." : "Pay"}
-        </button>
+        <div className="flex justify-center items-center">
+          <button
+            type="submit"
+            className="w-[60%] bg-slate-600 font-semibold text-white py-3 rounded-lg hover:bg-slate-700 transition-colors"
+            disabled={!stripe || loading || !elements}
+          >
+            {loading ? "Processing..." : "Pay"}
+          </button>
+        </div>
       </form>
     </div>
   );
