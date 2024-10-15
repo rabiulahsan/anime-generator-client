@@ -4,6 +4,8 @@ import { useState } from "react";
 import UseAuth from "../../Hooks/UseAuth/UseAuth";
 import UseCoin from "../../Hooks/UseCoin/UseCoin";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CheckoutForm = ({ details, clientSecret }) => {
   const stripe = useStripe();
@@ -14,6 +16,20 @@ const CheckoutForm = ({ details, clientSecret }) => {
   const { coin, setCoin } = UseCoin();
   const { user } = UseAuth();
   const navigate = useNavigate();
+
+  // Initialize toast once in your app
+  const showToast = (message, type = "info", position = "top-right") => {
+    toast(message, {
+      position,
+      type,
+      autoClose: 5000, // Auto close after 5 seconds
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
 
   //create functions for posting the paymentdetails to database
   const sendPaymentDetails = async (paymentDetails) => {
@@ -124,6 +140,7 @@ const CheckoutForm = ({ details, clientSecret }) => {
 
       // 2. Send payment details to the backend
       await sendPaymentDetails(paymentDetails);
+      showToast("Thank you! Your payment was successful.", "success");
       navigate("/");
       setLoading(false);
     }
