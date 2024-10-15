@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { GiTwoCoins } from "react-icons/gi";
 import PaymentModals from "../../Shared/Modals/PaymentModals";
 
@@ -50,6 +50,7 @@ const PricingCard = ({ details }) => {
       <PaymentModals
         showPaymentModal={showPaymentModal}
         handlePaymentClose={closePaymentModal}
+        clientSecret={clientSecret}
         details={details}
       ></PaymentModals>
     </div>

@@ -1,13 +1,16 @@
 /* eslint-disable react/prop-types */
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useState } from "react";
+import UseAuth from "../../Hooks/UseAuth/UseAuth";
 
-const CheckoutForm = ({ details }) => {
+const CheckoutForm = ({ details, clientSecret }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [loading, setLoading] = useState(false);
   const [cardError, setCardError] = useState("");
+  const [trxId, setTrxId] = useState("");
   const { coins, price, name } = details;
+  const { user } = UseAuth();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -33,6 +36,26 @@ const CheckoutForm = ({ details }) => {
       setLoading(false);
       setCardError("");
       // Process payment here
+    }
+
+    //confirm payment
+    const { paymentIntent, error: paymentError } =
+      await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: cardElement,
+          billing_details: {
+            email: user?.email,
+            name: user?.displayName,
+          },
+        },
+      });
+
+    if (paymentError) {
+      // Handle error here
+    } else if (paymentIntent && paymentIntent.status === "succeeded") {
+      // Handle successful payment here
+      console.log(paymentIntent);
+      setTrxId(paymentIntent.id);
     }
   };
 
@@ -72,10 +95,11 @@ const CheckoutForm = ({ details }) => {
         <div className="flex justify-center items-center">
           <button
             type="submit"
+            disabled={!stripe || loading || !elements || !clientSecret}
             className="w-[60%] bg-slate-600 font-semibold text-white py-3 rounded-lg hover:bg-slate-700 transition-colors"
-            disabled={!stripe || loading || !elements}
           >
             {loading ? "Processing..." : "Pay"}
+            {/* //todo design disable button  */}
           </button>
         </div>
       </form>

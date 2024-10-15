@@ -1,15 +1,19 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import { GiTwoCoins } from "react-icons/gi";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
 
-const PaymentModals = ({ showPaymentModal, handlePaymentClose, details }) => {
+const PaymentModals = ({
+  showPaymentModal,
+  handlePaymentClose,
+  details,
+  clientSecret,
+}) => {
   const modalRef = useRef();
   const { coins, price, name } = details;
-  const [clientSecret, setClientSecret] = useState("");
 
   // Close on 'Escape' key press
   useEffect(() => {
@@ -62,7 +66,10 @@ const PaymentModals = ({ showPaymentModal, handlePaymentClose, details }) => {
 
         {/* it is for stripe payment  */}
         <Elements stripe={stripePromise}>
-          <CheckoutForm details={details}></CheckoutForm>
+          <CheckoutForm
+            details={details}
+            clientSecret={clientSecret}
+          ></CheckoutForm>
         </Elements>
         <button
           className="absolute -top-4 -right-4 text-slate-100 text-3xl bg-sky-500  rounded-full "
