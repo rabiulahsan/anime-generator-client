@@ -47,7 +47,7 @@ const CheckoutForm = ({ details, clientSecret }) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ coin: updatedCoin }), // Send only the updated coin value
+          body: JSON.stringify({ coin: updatedCoin, type: "paid" }), // Send only the updated coin value
         }
       );
 
