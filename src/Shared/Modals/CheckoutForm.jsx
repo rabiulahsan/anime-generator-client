@@ -6,6 +6,7 @@ const CheckoutForm = ({ details }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [loading, setLoading] = useState(false);
+  const [cardError, setCardError] = useState("");
   const { coins, price, name } = details;
 
   const handleSubmit = async (event) => {
@@ -26,9 +27,11 @@ const CheckoutForm = ({ details }) => {
     if (error) {
       console.log("[error]", error);
       setLoading(false);
+      setCardError(error?.message);
     } else {
       console.log("[PaymentMethod]", paymentMethod);
       setLoading(false);
+      setCardError("");
       // Process payment here
     }
   };
@@ -38,7 +41,7 @@ const CheckoutForm = ({ details }) => {
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Card Information */}
         <div className="bg-gray-100 p-4 rounded-lg">
-          <h2 className="text-lg font-semibold mb-4 text-gray-600">
+          <h2 className="text-lg font-bold mb-4 text-slate-600 text-center">
             Card Information
           </h2>
           <CardElement
@@ -59,6 +62,10 @@ const CheckoutForm = ({ details }) => {
               },
             }}
           />
+          <p className="text-red-500 font-semibold  text-center mt-2 ">
+            {" "}
+            {cardError}
+          </p>
         </div>
 
         {/* Submit Button */}
