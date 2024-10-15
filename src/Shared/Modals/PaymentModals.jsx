@@ -5,6 +5,9 @@ import { GiTwoCoins } from "react-icons/gi";
 import UseAuth from "../../Hooks/UseAuth/UseAuth";
 import UseCoin from "../../Hooks/UseCoin/UseCoin";
 import UseUserData from "../../Hooks/UseUserData/UseUserData";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckoutForm from "./CheckoutForm";
 
 const ProfileModals = ({ showPaymentModal, handlePaymentClose, details }) => {
   const modalRef = useRef();
@@ -36,6 +39,11 @@ const ProfileModals = ({ showPaymentModal, handlePaymentClose, details }) => {
 
   if (!showPaymentModal) return null;
 
+  // load stripe by using publishable key and made a promise
+  const stripePromise = loadStripe(
+    "pk_test_51NI8qZKFO43bL9Un3dftyJodhx8YONM1dwSqZcqPS3sDB8qiC5HoI35BaPtwBNDGGxb3c7JI1aQWyYrxCapaZBwd00btWWRW0O"
+  );
+
   return (
     <div
       onClick={handleOutsideClick}
@@ -58,6 +66,11 @@ const ProfileModals = ({ showPaymentModal, handlePaymentClose, details }) => {
           for just{" "}
           <span className="font-bold text-xl text-sky-500">{price}$</span>
         </p>
+
+        {/* it is for stripe payment  */}
+        <Elements stripe={stripePromise}>
+          <CheckoutForm></CheckoutForm>
+        </Elements>
         <button
           className="absolute -top-4 -right-4 text-slate-100 text-3xl bg-sky-500  rounded-full "
           onClick={handlePaymentClose}
