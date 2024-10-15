@@ -3,16 +3,17 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useState } from "react";
 import UseAuth from "../../Hooks/UseAuth/UseAuth";
 import UseCoin from "../../Hooks/UseCoin/UseCoin";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = ({ details, clientSecret }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [loading, setLoading] = useState(false);
   const [cardError, setCardError] = useState("");
-  const [trxId, setTrxId] = useState("");
   const { coins, price, name } = details;
   const { coin, setCoin } = UseCoin();
   const { user } = UseAuth();
+  const navigate = useNavigate();
 
   //create functions for posting the paymentdetails to database
   const sendPaymentDetails = async (paymentDetails) => {
@@ -52,6 +53,7 @@ const CheckoutForm = ({ details, clientSecret }) => {
 
       if (response.ok) {
         // Update the local coin state with the new value
+
         setCoin(updatedCoin);
       } else {
         console.error("Failed to decrease coin in the database");
@@ -83,7 +85,7 @@ const CheckoutForm = ({ details, clientSecret }) => {
       setCardError(error?.message);
     } else {
       console.log("[PaymentMethod]", paymentMethod);
-      setLoading(false);
+
       setCardError("");
       // Process payment here
     }
@@ -104,7 +106,8 @@ const CheckoutForm = ({ details, clientSecret }) => {
       // Handle error here
     } else if (paymentIntent && paymentIntent.status === "succeeded") {
       // Handle successful payment here
-      setTrxId(paymentIntent.id);
+
+      //increase the number of coin after successfull payment
       await increaseCoin();
 
       const paymentDetails = {
@@ -113,12 +116,14 @@ const CheckoutForm = ({ details, clientSecret }) => {
         name: user?.displayName,
         email: user?.email,
         coins,
-        trxId,
+        trxId: paymentIntent.id,
         time: new Date(),
       };
 
       // 2. Send payment details to the backend
       await sendPaymentDetails(paymentDetails);
+      navigate("/");
+      setLoading(false);
     }
   };
 
@@ -159,7 +164,13 @@ const CheckoutForm = ({ details, clientSecret }) => {
           <button
             type="submit"
             disabled={!stripe || loading || !elements || !clientSecret}
-            className="w-[60%] bg-slate-600 font-semibold text-white py-3 rounded-lg hover:bg-slate-700 transition-colors"
+            className={`w-[60%] py-3 rounded-lg transition-colors 
+                font-semibold text-white 
+                ${
+                  !stripe || loading || !elements || !clientSecret
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-slate-600 hover:bg-slate-700"
+                }`}
           >
             {loading ? "Processing..." : "Pay"}
             {/* //todo design disable button  */}
