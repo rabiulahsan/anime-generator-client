@@ -32,13 +32,16 @@ const AuthProvider = ({ children }) => {
       if (loggedUser) {
         try {
           // Fetching the JWT from the server
-          const response = await fetch("http://localhost:5000/jwt", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ email: loggedUser.email }),
-          });
+          const response = await fetch(
+            "https://anime-generator-sever.vercel.app/jwt",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ email: loggedUser.email }),
+            }
+          );
 
           if (!response.ok) {
             throw new Error("Failed to retrieve JWT token");

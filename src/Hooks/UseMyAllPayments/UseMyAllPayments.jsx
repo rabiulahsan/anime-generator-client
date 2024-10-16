@@ -9,13 +9,16 @@ const UseMyAllPayments = () => {
   useEffect(() => {
     // Fetch data using .then() and .catch() instead of async/await
     if (user?.email) {
-      fetch(`http://localhost:5000/payments?email=${user.email}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("access-token")}`, // Include authorization if required
-        },
-      })
+      fetch(
+        `https://anime-generator-sever.vercel.app/payments?email=${user.email}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`, // Include authorization if required
+          },
+        }
+      )
         .then((response) => {
           if (!response.ok) {
             throw new Error("Failed to fetch user's payments");

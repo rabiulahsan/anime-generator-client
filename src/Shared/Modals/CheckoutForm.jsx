@@ -35,14 +35,17 @@ const CheckoutForm = ({ details, clientSecret }) => {
   const sendPaymentDetails = async (paymentDetails) => {
     console.log(localStorage.getItem("access-token"));
     try {
-      const response = await fetch("http://localhost:5000/payments", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("access-token")}`, // Include authorization if required
-        },
-        body: JSON.stringify(paymentDetails), // Send the payment details
-      });
+      const response = await fetch(
+        "https://anime-generator-sever.vercel.app/payments",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`, // Include authorization if required
+          },
+          body: JSON.stringify(paymentDetails), // Send the payment details
+        }
+      );
 
       const data = await response.json();
       console.log(data.message); // Success message
@@ -59,7 +62,7 @@ const CheckoutForm = ({ details, clientSecret }) => {
 
       // Call the API to update the coin value in the database
       const response = await fetch(
-        `http://localhost:5000/users/update?email=${user.email}`,
+        `https://anime-generator-sever.vercel.app/users/update?email=${user.email}`,
         {
           method: "PUT",
           headers: {

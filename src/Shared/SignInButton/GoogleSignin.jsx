@@ -25,7 +25,7 @@ const GoogleSignin = ({ handleClose }) => {
         };
         handleClose();
         // console.log(saveUser);
-        fetch("http://localhost:5000/users/", {
+        fetch("https://anime-generator-sever.vercel.app/users/", {
           method: "POST",
           headers: {
             "content-type": "application/json",

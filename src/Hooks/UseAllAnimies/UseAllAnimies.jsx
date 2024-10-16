@@ -5,7 +5,7 @@ const UseAllAnimies = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5000/animies")
+    fetch("https://anime-generator-sever.vercel.app/animies")
       .then((res) => res.json())
       .then((data) => {
         setAllAnimies(data);

@@ -9,12 +9,15 @@ const UseUserData = () => {
   useEffect(() => {
     // Fetch data using .then() and .catch() instead of async/await
     if (user?.email) {
-      fetch(`http://localhost:5000/users/user/${user.email}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
+      fetch(
+        `https://anime-generator-sever.vercel.app/users/user/${user.email}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
         .then((response) => {
           if (!response.ok) {
             throw new Error("Failed to fetch user's data");

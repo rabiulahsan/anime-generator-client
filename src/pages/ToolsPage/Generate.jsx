@@ -99,15 +99,18 @@ const Generate = () => {
         const token = localStorage.getItem("access-token");
 
         // Make the POST request to generate the image
-        const response = await fetch("http://localhost:5000/animies/generate", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json", // Ensure the server reads it as JSON
-            "x-api-key": import.meta.env.VITE_CLIP_DROP_KEY, // Replace with your actual API key
-            Authorization: `Bearer ${token}`, // Add JWT token to headers
-          },
-          body: JSON.stringify(promptData), // Convert the object to JSON string
-        });
+        const response = await fetch(
+          "https://anime-generator-sever.vercel.app/animies/generate",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json", // Ensure the server reads it as JSON
+              "x-api-key": import.meta.env.VITE_CLIP_DROP_KEY, // Replace with your actual API key
+              Authorization: `Bearer ${token}`, // Add JWT token to headers
+            },
+            body: JSON.stringify(promptData), // Convert the object to JSON string
+          }
+        );
 
         if (!response.ok) {
           throw new Error("Failed to generate image");
@@ -120,7 +123,7 @@ const Generate = () => {
 
         // Fetch the generated image using the insertedId
         const imageResponse = await fetch(
-          `http://localhost:5000/animies/generated/${insertedId}`,
+          `https://anime-generator-sever.vercel.app/animies/generated/${insertedId}`,
           {
             method: "GET",
             headers: {

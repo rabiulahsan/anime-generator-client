@@ -13,7 +13,7 @@ const PricingCard = ({ details }) => {
   // Function to handle the opening of the modal and API call
   const openPaymentModal = () => {
     // Call the API when opening the modal
-    fetch("http://localhost:5000/create-payment-intent", {
+    fetch("https://anime-generator-sever.vercel.app/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ price }), // Send the price to the API

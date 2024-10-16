@@ -32,7 +32,7 @@ const CoinProvider = ({ children }) => {
 
       // Call the API to update the coin value in the database
       const response = await fetch(
-        `http://localhost:5000/users/update?email=${user.email}`,
+        `https://anime-generator-sever.vercel.app/users/update?email=${user.email}`,
         {
           method: "PUT",
           headers: {

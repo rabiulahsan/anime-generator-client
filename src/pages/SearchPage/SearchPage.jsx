@@ -24,7 +24,9 @@ const SearchPage = () => {
   const fetchResults = async (query) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/search?query=${encodeURIComponent(query)}`
+        `https://anime-generator-sever.vercel.app/api/search?query=${encodeURIComponent(
+          query
+        )}`
       );
       const data = await response.json();
       setResults(data);
