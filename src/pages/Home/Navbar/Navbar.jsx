@@ -25,9 +25,14 @@ const Navbar = () => {
 
   const handleSearch = (e) => {
     if (e.key === "Enter") {
-      console.log(`Search term: ${searchValue}`);
+      // console.log(`Search term: ${searchValue}`);
+      const encodedSearchValue = encodeURIComponent(searchValue.trim()).replace(
+        /%20/g,
+        "+"
+      );
+      // console.log(encodedSearchValue);
+      navigate(`results?search_query=${encodedSearchValue}`);
       setSearchValue("");
-      //todo search logic apply
     }
   };
 

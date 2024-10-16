@@ -67,8 +67,6 @@ const Removebg = () => {
         "File size exceeds 10MB or file type is not supported.",
         "error"
       );
-
-      //todo set sweetalert
     }
   };
 

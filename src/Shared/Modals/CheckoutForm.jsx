@@ -192,7 +192,6 @@ const CheckoutForm = ({ details, clientSecret }) => {
                 }`}
           >
             {loading ? "Processing..." : "Pay"}
-            {/* //todo design disable button  */}
           </button>
         </div>
       </form>
