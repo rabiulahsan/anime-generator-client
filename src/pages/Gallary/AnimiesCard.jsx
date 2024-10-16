@@ -15,7 +15,7 @@ const AnimiesCard = ({ details }) => {
 
         {/* Overlay that slides up on hover */}
         <div className="absolute bottom-0 left-0 right-0 h-full bg-black bg-opacity-60 text-white flex items-center justify-center translate-y-full group-hover:translate-y-0 transition-all duration-500 ease-in-out">
-          <p className="text-sm text-center font-semibold px-5">{prompt}</p>
+          <p className="text-xs text-center font-semibold px-5">{prompt}</p>
         </div>
       </div>
     </div>

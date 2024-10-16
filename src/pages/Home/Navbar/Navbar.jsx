@@ -23,16 +23,18 @@ const Navbar = () => {
       .catch((error) => console.log(error));
   };
 
+  //handling search
   const handleSearch = (e) => {
     if (e.key === "Enter") {
       // console.log(`Search term: ${searchValue}`);
+      if (!searchValue) return;
       const encodedSearchValue = encodeURIComponent(searchValue.trim()).replace(
         /%20/g,
         "+"
       );
       // console.log(encodedSearchValue);
-      navigate(`results?search_query=${encodedSearchValue}`);
-      setSearchValue("");
+      navigate(`/results?search_query=${encodedSearchValue}`);
+      // setSearchValue("");
     }
   };
 
@@ -92,7 +94,7 @@ const Navbar = () => {
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
               onKeyDown={handleSearch}
-              className="pl-10 pr-3 py-[10px] w-full bg-slate-100 text-gray-700 rounded-full border-2 border-transparent focus:outline-none focus:border-slate-300 focus:bg-white transition-colors"
+              className="pl-10 pr-3 py-[10px] text-slate-600 font-semibold w-full bg-slate-100  rounded-full border-2 border-transparent focus:outline-none focus:border-slate-300 focus:bg-white transition-colors"
             />
           </div>
 
