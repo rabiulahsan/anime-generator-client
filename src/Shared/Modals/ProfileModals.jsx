@@ -22,6 +22,7 @@ const ProfileModals = ({ showProfileModal, handleProfileClose }) => {
     logOut()
       .then(navigate("/"))
       .catch((error) => console.log(error));
+    handleProfileClose();
   };
 
   // Close on 'Escape' key press

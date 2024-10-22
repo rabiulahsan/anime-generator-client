@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import ActiveLink from "../../../Components/ActiveLink/ActiveLink";
 import { useState } from "react";
-import { IoSearch } from "react-icons/io5";
+import { IoSearch, IoMenu, IoClose } from "react-icons/io5"; // added icons
 import { GiTwoCoins } from "react-icons/gi";
 import LoginModals from "../../../Shared/Modals/LoginModals";
 import UseAuth from "../../../Hooks/UseAuth/UseAuth";
@@ -12,29 +12,25 @@ const Navbar = () => {
   const [searchValue, setSearchValue] = useState("");
   const { logOut, user } = UseAuth();
   const { coin } = useCoin();
-  // console.log(coin);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // toggle for mobile menu
   const [isSearchOpen, setIsSearchOpen] = useState(false); // toggle for mobile search
 
   const navigate = useNavigate();
 
-  // functon for logout
   const handleLogOut = () => {
     logOut()
       .then(navigate("/"))
       .catch((error) => console.log(error));
   };
 
-  //handling search
   const handleSearch = (e) => {
     if (e.key === "Enter" && searchValue.trim()) {
       const encodedSearchValue = encodeURIComponent(searchValue.trim()).replace(
         /%20/g,
         "+"
       );
-      // console.log(encodedSearchValue);
       navigate(`/results?search_query=${encodedSearchValue}`);
-      // setSearchValue("");
+      setSearchValue("");
     }
   };
 
@@ -53,29 +49,38 @@ const Navbar = () => {
   const closeProfileModal = () => setShowProfileModal(false);
 
   return (
-    <div className="sticky top-0 left-0 z-50">
-      <div className="flex justify-between items-center w-full pt-6 pb-4 px-[4%] relative bg-white bg-opacity-60 backdrop-blur-sm">
-        {/* Left side with menu items */}
-        <div className="flex items-center gap-x-10">
-          <span className="font-bold text-slate-800 hover:text-sky-500">
-            <ActiveLink to="/gallary">Gallary</ActiveLink>
-          </span>
-          {/* optional option */}
-          {user && (
+    <div className="sticky top-0 left-0 z-50 ">
+      <div className="flex justify-between items-center w-full py-4 px-[4%] relative bg-white bg-opacity-60 backdrop-blur-sm">
+        {/* Left side with menu items and hamburger for mobile */}
+        <div className="flex items-center gap-x-6">
+          {/* Hamburger menu for mobile */}
+          <button
+            className="text-3xl md:hidden" // only show on mobile
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? <IoClose /> : <IoMenu />}
+          </button>
+
+          <div className="hidden md:flex gap-x-6">
             <span className="font-bold text-slate-800 hover:text-sky-500">
-              <ActiveLink to="/creation">My Creation</ActiveLink>
+              <ActiveLink to="/gallary">Gallery</ActiveLink>
             </span>
-          )}
-          <span className="font-bold text-slate-800 hover:text-sky-500">
-            <ActiveLink to="/tools">Tools</ActiveLink>
-          </span>
-          <span className="font-bold text-slate-800 hover:text-sky-500">
-            <ActiveLink to="/pricing">Pricing</ActiveLink>
-          </span>
+            {user && (
+              <span className="font-bold text-slate-800 hover:text-sky-500">
+                <ActiveLink to="/creation">My Creation</ActiveLink>
+              </span>
+            )}
+            <span className="font-bold text-slate-800 hover:text-sky-500">
+              <ActiveLink to="/tools">Tools</ActiveLink>
+            </span>
+            <span className="font-bold text-slate-800 hover:text-sky-500">
+              <ActiveLink to="/pricing">Pricing</ActiveLink>
+            </span>
+          </div>
         </div>
 
         {/* Centered logo */}
-        <div className="absolute left-[48%] transform -translate-x-1/2">
+        <div className=" md:absolute md:left-1/2 md:transform md:-translate-x-1/2 flex md:flex-none">
           <Link to="/">
             <p className="text-4xl font-bold font-playball text-slate-600">
               <span className="text-sky-500">Ani</span>Gen
@@ -87,29 +92,41 @@ const Navbar = () => {
         <div className="flex gap-x-4 items-center">
           {/* Search bar */}
           <div className="relative">
-            <IoSearch className="absolute left-4 top-[55%] transform -translate-y-1/2 text-slate-500" />
-            <input
-              type="text"
-              placeholder="Search your anime..."
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
-              onKeyDown={handleSearch}
-              className="pl-10 pr-3 py-[10px] text-slate-600 font-semibold w-full bg-slate-100  rounded-full border-2 border-transparent focus:outline-none focus:border-slate-300 focus:bg-white transition-colors"
-            />
+            <button
+              className="text-2xl md:hidden" // mobile search button
+              onClick={() => setIsSearchOpen(!isSearchOpen)}
+            >
+              <IoSearch />
+            </button>
+            <div
+              className={`relative ${
+                isSearchOpen ? "block" : "hidden"
+              } md:block`}
+            >
+              <IoSearch className="absolute left-4 top-[55%] transform -translate-y-1/2 text-slate-500" />
+              <input
+                type="text"
+                placeholder="Search your anime..."
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+                onKeyDown={handleSearch}
+                className="pl-10 pr-3 py-[10px] text-slate-600 font-semibold w-full bg-slate-100 rounded-full border-2 border-transparent focus:outline-none focus:border-slate-300 focus:bg-white transition-colors"
+              />
+            </div>
           </div>
 
-          {/* login or logout button optional based on user  */}
+          {/* login or logout button */}
           {user ? (
             <button
               onClick={handleLogOut}
-              className="font-bold text-slate-100 bg-slate-600 px-5 py-3 rounded-full hover:bg-slate-700"
+              className="hidden md:flex font-bold text-slate-100 bg-slate-600 px-4 py-2 rounded-full hover:bg-slate-700"
             >
               Log out
             </button>
           ) : (
             <button
               onClick={openModal}
-              className="font-bold text-white bg-sky-500 px-5 py-3 rounded-full hover:bg-sky-600"
+              className="hidden md:flex  font-bold text-white bg-sky-500 px-4 py-2 rounded-full hover:bg-sky-600"
             >
               Log in
             </button>
@@ -117,11 +134,9 @@ const Navbar = () => {
           {user && (
             <p
               title="Coins you have"
-              className="flex items-center gap-x-1 bg-slate-200 py-2 px-4 rounded-full text-lg font-semibold text-slate-700"
+              className="hidden md:flex items-center gap-x-1 bg-slate-200 py-2 px-4 rounded-full text-lg font-semibold text-slate-700"
             >
-              <span className="text-xl">
-                <GiTwoCoins></GiTwoCoins>
-              </span>
+              <GiTwoCoins />
               {coin}
             </p>
           )}
@@ -129,30 +144,60 @@ const Navbar = () => {
           {user && (
             <img
               onClick={openProfileModal}
-              className="h-[40px] w-[40px] object-cover rounded-full cursor-pointer"
+              className="h-10 w-10 object-cover rounded-full cursor-pointer"
               src={user.photoURL}
               alt={user.displayName}
             />
           )}
-
-          {/* <button
-            onClick={() => openModal("login")}
-            className="font-bold text-slate-700 px-5 py-3 rounded-full hover:bg-slate-100"
-          >
-            Log in
-          </button> */}
-
-          {/* <button className="font-bold text-white bg-sky-500 px-5 py-3 rounded-full hover:bg-sky-600">
-            Sign up
-          </button> */}
         </div>
       </div>
-      {/* Modal */}
+
+      {/* Mobile menu */}
+      <div
+        className={`md:hidden ${isMenuOpen ? "block" : "hidden"} bg-white py-2`}
+      >
+        <Link
+          to="/gallary"
+          className="block py-2 text-center font-bold text-slate-800 hover:text-sky-500"
+        >
+          Gallery
+        </Link>
+        {user && (
+          <Link
+            to="/creation"
+            className="block py-2 text-center font-bold text-slate-800 hover:text-sky-500"
+          >
+            My Creation
+          </Link>
+        )}
+        <Link
+          to="/tools"
+          className="block py-2 text-center font-bold text-slate-800 hover:text-sky-500"
+        >
+          Tools
+        </Link>
+        <Link
+          to="/pricing"
+          className="block py-2 text-center font-bold text-slate-800 hover:text-sky-500"
+        >
+          Pricing
+        </Link>
+        <div className=" flex justify-center items-center mt-5">
+          <button
+            onClick={openModal}
+            className="font-bold text-white bg-sky-500 px-5 py-3 rounded-md hover:bg-sky-600"
+          >
+            Log in
+          </button>
+        </div>
+      </div>
+
+      {/* Modals */}
       <LoginModals showModal={showModal} handleClose={closeModal} />
       <ProfileModals
         showProfileModal={showProfileModal}
         handleProfileClose={closeProfileModal}
-      ></ProfileModals>
+      />
     </div>
   );
 };
