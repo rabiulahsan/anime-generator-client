@@ -6,14 +6,23 @@ import UseAuth from "../../Hooks/UseAuth/UseAuth";
 import UseCoin from "../../Hooks/UseCoin/UseCoin";
 import UseUserData from "../../Hooks/UseUserData/UseUserData";
 import UseMyAllAnimies from "../../Hooks/UseMyAllAnimies/UseMyAllAnimies";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const ProfileModals = ({ showProfileModal, handleProfileClose }) => {
   const modalRef = useRef();
-  const { user } = UseAuth();
+  const { user, logOut } = UseAuth();
   const { coin } = UseCoin();
   const [userData] = UseUserData();
   const [myAnimies] = UseMyAllAnimies();
+
+  const navigate = useNavigate();
+
+  // functon for logout
+  const handleLogOut = () => {
+    logOut()
+      .then(navigate("/"))
+      .catch((error) => console.log(error));
+  };
 
   // Close on 'Escape' key press
   useEffect(() => {
@@ -86,6 +95,14 @@ const ProfileModals = ({ showProfileModal, handleProfileClose }) => {
               Buy Coins <GiTwoCoins></GiTwoCoins>
             </button>
           </Link>
+        </div>
+        <div className="flex items-center justify-center">
+          <button
+            onClick={handleLogOut}
+            className=" mx-auto mt-5 px-3 py-2 bg-slate-600 text-slate-50 rounded font-semibold hover:bg-slate-700"
+          >
+            Log out
+          </button>
         </div>
 
         <button
