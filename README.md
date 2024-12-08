@@ -9,7 +9,7 @@
 2. [Objectives](#objectives)  
 3. [Technology Used](#technology-used)  
 4. [Features](#features)
-   - [Tools](#feature-tools)  
+   - [Tools](#tools)  
    - [Profile](#feature-profile)  
    - [Pricing](#feature-pricing)  
    - [Payment](#feature-payment)  
