@@ -10,9 +10,9 @@
 3. [Technology Used](#technology-used)  
 4. [Features](#features)
    - [Tools](#tools)  
-   - [Profile](#feature-profile)  
-   - [Pricing](#feature-pricing)  
-   - [Payment](#feature-payment)  
+   - [Profile](#profile)  
+   - [Pricing](#pricing)  
+   - [Payment](#payment)  
 5. [Contact Information](#contact-information)  
 
 ## **Overview**
