@@ -57,23 +57,49 @@ This project demonstrates expertise in **full-stack development**, **AI-powered 
 ## **Features**
 
 
-#### **Tools**  
-<img src="public/tools.png" alt="Feature Tools" height="300">  
-Provide advanced tools for image customization and enhancement.
+### **Navbar**  
 
-#### **Profile**  
+The navbar offers easy navigation for users:  
+- Access **all generated images** by the user.  
+- Browse **all generated images** across the platform.  
+- View the remaining **coin balance**.  
+- Options to **Log In/Sign Out** for managing access.  
+<img src="public/navbar.png" alt="Navbar">  
+
+
+### **Tools**  
+  
+**Anigen** provides the following advanced tools for image enhancement and customization:  
+1. **Image Upscaling**: Enhance image resolution for better quality.  
+2. **Reimagining**: Transform existing images into anime-style artwork.  
+3. **Background Removal**: Remove backgrounds seamlessly from any image.  
+4. **Background Replacement**: Replace the background with custom or AI-generated visuals.  
+<img src="public/tools.png" alt="Feature Tools" height="300">
+
+
+### **Profile**  
+
+The profile page displays:  
+- **Membership Type** (e.g., Basic, Pro, Enterprise).  
+- **Other User Information**, such as coin balance and account details.  
 <img src="public/profile.png" alt="Feature Profile" height="300">  
-Enable users to manage their profiles and track coin usage.  
+  
 
-#### **Pricing**  
-<img src="public/price.png" alt="Feature Pricing" height="300">  
-Offer multiple pricing plans for purchasing coins.  
+### **Pricing**  
+ 
+Anigen offers three flexible plans to suit various user needs:  
+1. **Basics**: 250 coins for $25 (Affordable starter plan).  
+2. **Pro**: 500 coins for $40 (Enhanced plan for regular users).  
+3. **Enterprise**: 1000 coins for $80 (Premium plan for advanced users).  
+<img src="public/price.png" alt="Feature Pricing" height="300"> 
 
-#### **Payment**  
-(Include image or description here for Payment)  
+
+### **Payment**  
+Anigen features seamless **Stripe payment integration** for secure transactions.  
+<img src="public/stripe.png" alt="Stripe Integration" height="300">  
+
+Users can also view their complete **payment history** to track all purchases:  
 <img src="public/payment-history.png" alt="Payment History" height="300">  
-Seamless payment gateway integration using Stripe.  
-<img src="public/stripe.png" alt="Feature Pricing" height="300">  
 
 ## **Contact Information**
 
