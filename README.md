@@ -1,7 +1,8 @@
-# **Anigen**
+# **Anigen- AI-powered SaaS for generating and enhancing images** 
 
-- **[Live Site Link](https://anigen.netlify.app/)**  
-- **[API Repository Link](https://github.com/rabiulahsan/anime-generator-server)**  
+- <a href="https://anigen.netlify.app/" target="_blank">Live Site Link</a>  
+- <a href="https://github.com/rabiulahsan/anime-generator-server" target="_blank">API Repository Link</a>  
+  
 
 ## **Table of Contents**
 
@@ -107,3 +108,4 @@ For queries or collaboration, reach out at:
 **Email**: [ra.rabiulahsan@gmail.com](mailto:ra.rabiulahsan@gmail.com)  
 <a href="https://www.linkedin.com/in/rabiul-ahsan" target="_blank">Linkedin</a>  
 <a href="https://rabiulahsan.netlify.app/" target="_blank">Portfolio</a>  
+
