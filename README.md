@@ -57,21 +57,23 @@ This project demonstrates expertise in **full-stack development**, **AI-powered 
 ## **Features**
 
 
-### **Tools**  
+#### **Tools**  
 <img src="public/tools.png" alt="Feature Tools" height="300">  
 Provide advanced tools for image customization and enhancement.
 
-### **Profile**  
+#### **Profile**  
 <img src="public/profile.png" alt="Feature Profile" height="300">  
 Enable users to manage their profiles and track coin usage.  
 
-### **Pricing**  
-<img src="public/pricing.png" alt="Feature Pricing" height="300">  
+#### **Pricing**  
+<img src="public/price.png" alt="Feature Pricing" height="300">  
 Offer multiple pricing plans for purchasing coins.  
 
-### **Payment**  
+#### **Payment**  
 (Include image or description here for Payment)  
+<img src="public/payment-history" alt="Feature Pricing" height="300">  
 Seamless payment gateway integration using Stripe.  
+<img src="public/stripe.png" alt="Feature Pricing" height="300">  
 
 ## **Contact Information**
 
