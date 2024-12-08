@@ -71,7 +71,7 @@ Offer multiple pricing plans for purchasing coins.
 
 #### **Payment**  
 (Include image or description here for Payment)  
-<img src="public/payment-history" alt="Payment History" height="300">  
+<img src="public/payment-history.png" alt="Payment History" height="300">  
 Seamless payment gateway integration using Stripe.  
 <img src="public/stripe.png" alt="Feature Pricing" height="300">  
 
