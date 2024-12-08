@@ -76,6 +76,6 @@ Seamless payment gateway integration using Stripe.
 ## **Contact Information**
 
 For queries or collaboration, reach out at:  
-[Email](mailto:ra.rabiulahsan@gmail.com)  
+**Email**: [ra.rabiulahsan@gmail.com](mailto:ra.rabiulahsan@gmail.com)  
 <a href="https://www.linkedin.com/in/rabiul-ahsan" target="_blank">Linkedin</a>  
 <a href="https://rabiulahsan.netlify.app/" target="_blank">Portfolio</a>  
